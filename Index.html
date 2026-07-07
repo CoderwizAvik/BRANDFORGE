@@ -3,40 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrandForge AI - Personal Brand Engine</title>
+    <title>BRANDFORGE | Forge Your Universe</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        space: ['"Space Grotesk"', 'sans-serif'],
                     },
                     colors: {
-                        navy: {
-                            900: '#0A2647', // primary dark navy
-                            800: '#144272', // secondary blue
-                            700: '#205295', // accent blue
-                            500: '#2C74B3', // highlight CTA
+                        space: {
+                            900: '#050510',
+                            800: '#0b0b1a',
+                        },
+                        brand: {
+                            cyan: '#00f2fe',
+                            purple: '#4facfe',
+                            magenta: '#f093fb'
                         }
                     },
                     animation: {
-                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'fade-in': 'fadeIn 0.3s ease-in-out',
-                        'slide-up': 'slideUp 0.4s ease-out',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
                         }
                     }
                 }
@@ -45,1050 +40,358 @@
     </script>
     <style>
         body {
-            background-color: #0A2647;
-            color: #f3f4f6;
-            overflow: hidden; /* Prevent body scroll, handle internally */
-        }
-        
-        .glass-panel {
-            background: rgba(20, 66, 114, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            background-color: #050510;
+            color: white;
+            overflow-x: hidden;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        .glass-card {
-            background: linear-gradient(145deg, rgba(32, 82, 149, 0.2) 0%, rgba(20, 66, 114, 0.4) 100%);
+        /* Glassmorphism utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .glass-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            border-color: rgba(44, 116, 179, 0.4);
+            transform: translateY(-5px);
+            border-color: rgba(79, 172, 254, 0.4);
         }
 
-        /* Custom Scrollbar */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #205295;
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #2C74B3;
+        /* Text glow effect */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
         }
 
-        /* Toggle Switch */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #2C74B3;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #2C74B3;
-        }
-        .toggle-checkbox:checked + .toggle-label:after {
-            transform: translateX(100%);
-            border-color: white;
-        }
-
-        .nav-item.active {
-            background-color: rgba(44, 116, 179, 0.15);
-            border-left: 3px solid #2C74B3;
-            color: #fff;
-        }
-        .nav-item.active i {
-            color: #2C74B3;
-        }
-
-        .page-content {
-            display: none;
-        }
-        .page-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        /* Skeleton loading animation classes */
-        .skeleton-text {
-            background: linear-gradient(90deg, #144272 25%, #205295 50%, #144272 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            border-radius: 4px;
-        }
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Hide scrollbar for cleaner look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050510; }
+        ::-webkit-scrollbar-thumb { background: #1f1f3a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4facfe; }
     </style>
 </head>
-<body class="flex h-screen antialiased selection:bg-navy-500 selection:text-white">
+<body class="antialiased font-space selection:bg-brand-cyan selection:text-space-900 relative min-h-screen flex flex-col">
 
-    <!-- Mobile overlay -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+    <!-- Video Background Placeholder -->
+    <div class="fixed top-0 left-0 w-full h-full z-0 pointer-events-none bg-space-900">
+        <video class="w-full h-full object-cover opacity-40 mix-blend-screen" autoplay loop muted playsinline>
+            <!-- PLACEHOLDER: Replace this src with your actual video URL -->
+            <source src="background video 2 (1) (1).mp4" type="video/mp4">
+        </video>
+    </div>
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 transform -translate-x-full lg:translate-x-0 lg:static lg:block transition-transform duration-300 ease-in-out glass-panel border-r border-white/5 flex flex-col h-full">
-        <!-- Logo -->
-        <div class="flex items-center justify-between h-20 px-6 border-b border-white/5">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-navy-500 to-navy-700 flex items-center justify-center shadow-lg shadow-navy-500/20">
-                    <i class="fa-solid fa-fire text-white text-sm"></i>
+    <!-- Starfield Canvas (Background) -->
+    <canvas id="starfield" class="fixed top-0 left-0 w-full h-full z-[1] pointer-events-none"></canvas>
+    
+    <!-- Background Gradient Overlay for depth -->
+    <div class="fixed top-0 left-0 w-full h-full z-[2] pointer-events-none bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-space-900/60 to-space-900"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass border-b-0 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 cursor-pointer">
+                    <span class="text-2xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple">
+                        BRANDFORGE
+                    </span>
                 </div>
-                <span class="text-xl font-bold tracking-tight text-white">BrandForge<span class="text-navy-500">AI</span></span>
-            </div>
-            <button class="lg:hidden text-gray-400 hover:text-white" onclick="toggleSidebar()">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-        </div>
-
-        <!-- Navigation Links -->
-        <nav class="flex-1 px-3 py-6 space-y-1 overflow-y-auto custom-scrollbar">
-            <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Workspace</p>
-            
-            <a href="#" onclick="navigate('dashboard')" id="nav-dashboard" class="nav-item active flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors group">
-                <i class="fa-solid fa-chart-line w-5 text-center text-gray-400 group-hover:text-navy-500 transition-colors"></i>
-                <span class="font-medium text-sm">Dashboard</span>
-            </a>
-            
-            <a href="#" onclick="navigate('generator')" id="nav-generator" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors group">
-                <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-gray-400 group-hover:text-navy-500 transition-colors"></i>
-                <span class="font-medium text-sm">Content Generator</span>
-                <span class="ml-auto bg-navy-500/20 text-navy-500 text-[10px] font-bold px-2 py-0.5 rounded-full">AI</span>
-            </a>
-
-            <a href="#" onclick="navigate('calendar')" id="nav-calendar" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors group">
-                <i class="fa-regular fa-calendar-days w-5 text-center text-gray-400 group-hover:text-navy-500 transition-colors"></i>
-                <span class="font-medium text-sm">Calendar Intel</span>
-            </a>
-
-            <a href="#" onclick="navigate('scheduling')" id="nav-scheduling" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors group">
-                <i class="fa-solid fa-paper-plane w-5 text-center text-gray-400 group-hover:text-navy-500 transition-colors"></i>
-                <span class="font-medium text-sm">Automation</span>
-            </a>
-
-            <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-6 mb-2">Analytics</p>
-
-            <a href="#" onclick="navigate('engagement')" id="nav-engagement" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors group">
-                <i class="fa-solid fa-bolt w-5 text-center text-gray-400 group-hover:text-navy-500 transition-colors"></i>
-                <span class="font-medium text-sm">Engagement Intel</span>
-            </a>
-            
-            <a href="#" onclick="navigate('profile')" id="nav-profile" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors group">
-                <i class="fa-regular fa-user w-5 text-center text-gray-400 group-hover:text-navy-500 transition-colors"></i>
-                <span class="font-medium text-sm">Profile Analysis</span>
-            </a>
-
-            <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-6 mb-2">System</p>
-
-            <a href="#" onclick="navigate('settings')" id="nav-settings" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors group">
-                <i class="fa-solid fa-gear w-5 text-center text-gray-400 group-hover:text-navy-500 transition-colors"></i>
-                <span class="font-medium text-sm">Settings</span>
-            </a>
-        </nav>
-
-        <!-- User Profile (Bottom of Sidebar) -->
-        <div class="p-4 border-t border-white/5 bg-navy-800/30">
-            <div class="flex items-center gap-3 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors">
-                <img src="https://placehold.co/100x100/2C74B3/FFFFFF?text=Alex" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-navy-500">
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-white truncate">Alex Mercer</p>
-                    <p class="text-xs text-gray-400 truncate">Tech Founder</p>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#services" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Services</a>
+                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#contact" class="bg-gradient-to-r from-brand-purple to-brand-cyan text-white px-6 py-2 rounded-full text-sm font-medium hover:shadow-[0_0_15px_rgba(79,172,254,0.5)] transition-all">Start Forging</a>
+                    </div>
                 </div>
-                <i class="fa-solid fa-chevron-up text-xs text-gray-500"></i>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-        
-        <!-- Top Header -->
-        <header class="h-20 glass-panel border-b border-white/5 flex items-center justify-between px-4 sm:px-6 lg:px-8 z-30 sticky top-0">
-            <div class="flex items-center gap-4 flex-1">
-                <button class="lg:hidden text-gray-400 hover:text-white" onclick="toggleSidebar()">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-                
-                <!-- Search -->
-                <div class="relative w-full max-w-md hidden sm:block">
-                    <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm"></i>
-                    <input type="text" placeholder="Ask AI to find past posts, analyze trends..." 
-                        class="w-full bg-navy-800/50 border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm text-gray-200 focus:outline-none focus:border-navy-500 focus:ring-1 focus:ring-navy-500 placeholder-gray-500 transition-all shadow-inner">
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <!-- Notifications -->
-                <div class="relative">
-                    <button class="w-10 h-10 rounded-full bg-navy-800/50 hover:bg-navy-700/50 flex items-center justify-center text-gray-400 hover:text-white transition-colors border border-white/5">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
                     </button>
                 </div>
-                <button class="hidden sm:flex bg-navy-500 hover:bg-navy-700 text-white text-sm font-medium py-2 px-4 rounded-full transition-colors items-center gap-2 shadow-lg shadow-navy-500/20" onclick="navigate('generator')">
-                    <i class="fa-solid fa-pen-nib"></i> New Post
-                </button>
-            </div>
-        </header>
-
-        <!-- Pages Wrapper -->
-        <main class="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar p-4 sm:p-6 lg:p-8 scroll-smooth" id="main-scroll-area">
-            
-            <!-- Page: Dashboard (Home) -->
-            <section id="page-dashboard" class="page-content active max-w-7xl mx-auto">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
-                    <div>
-                        <h1 class="text-2xl font-bold text-white mb-1">Good morning, Alex.</h1>
-                        <p class="text-gray-400 text-sm">Here's what's happening with your personal brand today.</p>
-                    </div>
-                    <div class="flex items-center gap-2 text-sm text-gray-400 bg-navy-800/50 px-3 py-1.5 rounded-lg border border-white/5">
-                        <i class="fa-regular fa-calendar text-navy-500"></i> Oct 24, 2023
-                    </div>
-                </div>
-
-                <!-- Stats Overview -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                    <!-- Stat Card 1 -->
-                    <div class="glass-card rounded-xl p-5 relative overflow-hidden">
-                        <div class="absolute -right-4 -top-4 w-16 h-16 bg-navy-500/10 rounded-full blur-xl"></div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-10 h-10 rounded-lg bg-navy-800/80 border border-white/10 flex items-center justify-center text-blue-400">
-                                <i class="fa-solid fa-users"></i>
-                            </div>
-                            <span class="text-xs font-semibold text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md flex items-center gap-1">
-                                <i class="fa-solid fa-arrow-trend-up"></i> +12%
-                            </span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-1">Total Audience</p>
-                        <h3 class="text-2xl font-bold text-white">45.2K</h3>
-                    </div>
-
-                    <!-- Stat Card 2 -->
-                    <div class="glass-card rounded-xl p-5 relative overflow-hidden">
-                        <div class="absolute -right-4 -top-4 w-16 h-16 bg-purple-500/10 rounded-full blur-xl"></div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-10 h-10 rounded-lg bg-navy-800/80 border border-white/10 flex items-center justify-center text-purple-400">
-                                <i class="fa-solid fa-heart"></i>
-                            </div>
-                            <span class="text-xs font-semibold text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md flex items-center gap-1">
-                                <i class="fa-solid fa-arrow-trend-up"></i> +5.4%
-                            </span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-1">Avg Engagement Rate</p>
-                        <h3 class="text-2xl font-bold text-white">4.8%</h3>
-                    </div>
-
-                    <!-- Stat Card 3 -->
-                    <div class="glass-card rounded-xl p-5 relative overflow-hidden">
-                        <div class="absolute -right-4 -top-4 w-16 h-16 bg-orange-500/10 rounded-full blur-xl"></div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-10 h-10 rounded-lg bg-navy-800/80 border border-white/10 flex items-center justify-center text-orange-400">
-                                <i class="fa-regular fa-clock"></i>
-                            </div>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-1">Scheduled Posts</p>
-                        <h3 class="text-2xl font-bold text-white">12</h3>
-                    </div>
-
-                    <!-- Stat Card 4 -->
-                    <div class="glass-card rounded-xl p-5 relative overflow-hidden bg-gradient-to-br from-navy-700/40 to-navy-900/40 border-navy-500/30">
-                        <div class="absolute right-0 bottom-0 w-24 h-24 bg-navy-500/20 rounded-full blur-2xl"></div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-10 h-10 rounded-lg bg-navy-500/20 border border-navy-500/30 flex items-center justify-center text-white">
-                                <i class="fa-solid fa-robot"></i>
-                            </div>
-                            <span class="relative flex h-3 w-3">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                            </span>
-                        </div>
-                        <p class="text-blue-200 text-sm mb-1">New AI Insights</p>
-                        <h3 class="text-2xl font-bold text-white">3 Available</h3>
-                    </div>
-                </div>
-
-                <!-- Charts & Suggestions Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                    <!-- Main Chart -->
-                    <div class="lg:col-span-2 glass-panel rounded-xl p-5 border border-white/5">
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="font-semibold text-white">Engagement Trends</h3>
-                            <select class="bg-navy-800 border border-white/10 text-xs text-gray-300 rounded px-2 py-1 outline-none">
-                                <option>Last 7 Days</option>
-                                <option>Last 30 Days</option>
-                            </select>
-                        </div>
-                        <div class="relative h-64 w-full">
-                            <canvas id="engagementChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- AI Suggestions Panel -->
-                    <div class="glass-panel rounded-xl p-5 border border-white/5 flex flex-col">
-                        <div class="flex items-center gap-2 mb-4">
-                            <i class="fa-solid fa-sparkles text-navy-500"></i>
-                            <h3 class="font-semibold text-white">Today's AI Suggestions</h3>
-                        </div>
-                        
-                        <div class="flex-1 space-y-3 overflow-y-auto custom-scrollbar pr-2">
-                            <!-- Suggestion 1 -->
-                            <div class="bg-navy-800/40 hover:bg-navy-800/60 transition-colors p-3 rounded-lg border border-white/5 cursor-pointer group">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="text-[10px] font-bold uppercase tracking-wider text-linkedin-blue text-blue-400">LinkedIn</span>
-                                    <span class="text-xs text-gray-500">Trend Alert</span>
-                                </div>
-                                <p class="text-sm text-gray-300 group-hover:text-white transition-colors">"AI in SaaS" is trending in your network. Generate a hot take?</p>
-                                <button class="mt-2 text-xs text-navy-500 font-medium hover:text-white transition-colors" onclick="navigate('generator')">Generate <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                            </div>
-                            
-                            <!-- Suggestion 2 -->
-                            <div class="bg-navy-800/40 hover:bg-navy-800/60 transition-colors p-3 rounded-lg border border-white/5 cursor-pointer group">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="text-[10px] font-bold uppercase tracking-wider text-pink-400">Instagram</span>
-                                    <span class="text-xs text-gray-500">Event Based</span>
-                                </div>
-                                <p class="text-sm text-gray-300 group-hover:text-white transition-colors">You have a webinar today. Create a quick story reminder.</p>
-                                <button class="mt-2 text-xs text-navy-500 font-medium hover:text-white transition-colors" onclick="navigate('generator')">Create Story <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                            </div>
-
-                            <!-- Suggestion 3 -->
-                            <div class="bg-navy-800/40 hover:bg-navy-800/60 transition-colors p-3 rounded-lg border border-white/5 cursor-pointer group">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">X (Twitter)</span>
-                                    <span class="text-xs text-gray-500">Repurpose</span>
-                                </div>
-                                <p class="text-sm text-gray-300 group-hover:text-white transition-colors">Your post from last month did well. Repurpose into a thread.</p>
-                                <button class="mt-2 text-xs text-navy-500 font-medium hover:text-white transition-colors" onclick="navigate('generator')">Draft Thread <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Page: Content Generator -->
-            <section id="page-generator" class="page-content max-w-5xl mx-auto">
-                <div class="mb-6 flex items-center justify-between">
-                    <div>
-                        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-wand-magic-sparkles text-navy-500"></i> AI Content Studio
-                        </h2>
-                        <p class="text-gray-400 text-sm mt-1">Transform ideas into platform-optimized content in seconds.</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Left: Input Area -->
-                    <div class="lg:col-span-1 space-y-4">
-                        <div class="glass-panel rounded-xl p-5 border border-white/5">
-                            <label class="block text-sm font-medium text-gray-300 mb-2">What's on your mind?</label>
-                            <textarea id="prompt-input" rows="4" class="w-full bg-navy-900/50 border border-white/10 rounded-lg p-3 text-sm text-gray-200 focus:outline-none focus:border-navy-500 focus:ring-1 focus:ring-navy-500 placeholder-gray-600 resize-none custom-scrollbar" placeholder="e.g., Just hit $10k MRR. Sharing lessons learned about customer retention..."></textarea>
-                            
-                            <label class="block text-sm font-medium text-gray-300 mt-4 mb-2">Select Tone</label>
-                            <div class="grid grid-cols-2 gap-2 mb-4">
-                                <button class="tone-btn active bg-navy-700/50 border border-navy-500 text-white text-xs py-2 rounded-md transition-colors" onclick="selectTone(this)">Professional</button>
-                                <button class="tone-btn bg-navy-800/30 border border-white/5 text-gray-400 hover:text-white text-xs py-2 rounded-md transition-colors" onclick="selectTone(this)">Conversational</button>
-                                <button class="tone-btn bg-navy-800/30 border border-white/5 text-gray-400 hover:text-white text-xs py-2 rounded-md transition-colors" onclick="selectTone(this)">Storytelling</button>
-                                <button class="tone-btn bg-navy-800/30 border border-white/5 text-gray-400 hover:text-white text-xs py-2 rounded-md transition-colors" onclick="selectTone(this)">Viral / Edgy</button>
-                            </div>
-
-                            <label class="block text-sm font-medium text-gray-300 mb-2">Target Platforms</label>
-                            <div class="flex gap-2 mb-6">
-                                <label class="flex items-center gap-1.5 bg-navy-800/50 px-2.5 py-1.5 rounded text-xs border border-white/5 cursor-pointer hover:bg-navy-700/50">
-                                    <input type="checkbox" checked class="accent-navy-500"> <i class="fa-brands fa-linkedin text-blue-500"></i> LinkedIn
-                                </label>
-                                <label class="flex items-center gap-1.5 bg-navy-800/50 px-2.5 py-1.5 rounded text-xs border border-white/5 cursor-pointer hover:bg-navy-700/50">
-                                    <input type="checkbox" checked class="accent-navy-500"> <i class="fa-brands fa-x-twitter text-gray-300"></i> X
-                                </label>
-                            </div>
-
-                            <button onclick="generateContent()" class="w-full bg-navy-500 hover:bg-navy-700 text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg shadow-navy-500/20">
-                                <i class="fa-solid fa-bolt"></i> Generate Drafts
-                            </button>
-                        </div>
-                        
-                        <!-- Hook Suggestions -->
-                        <div class="glass-panel rounded-xl p-5 border border-white/5">
-                            <h4 class="text-sm font-semibold text-white mb-3">Suggested Hooks</h4>
-                            <ul class="space-y-2 text-sm text-gray-400">
-                                <li class="p-2 bg-navy-800/30 rounded border border-white/5 hover:border-navy-500/50 cursor-pointer transition-colors" onclick="document.getElementById('prompt-input').value = this.innerText">"How I scaled my MRR without ads..."</li>
-                                <li class="p-2 bg-navy-800/30 rounded border border-white/5 hover:border-navy-500/50 cursor-pointer transition-colors" onclick="document.getElementById('prompt-input').value = this.innerText">"The brutal truth about startup growth."</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Right: Output Area -->
-                    <div class="lg:col-span-2 space-y-4" id="output-area">
-                        <!-- Placeholder State -->
-                        <div id="empty-state" class="h-full flex flex-col items-center justify-center text-center p-8 border-2 border-dashed border-white/10 rounded-xl bg-navy-800/20 min-h-[400px]">
-                            <div class="w-16 h-16 bg-navy-800/50 rounded-full flex items-center justify-center mb-4 text-navy-500 text-2xl">
-                                <i class="fa-solid fa-robot"></i>
-                            </div>
-                            <h3 class="text-lg font-medium text-white mb-2">Ready to Forge</h3>
-                            <p class="text-sm text-gray-500 max-w-sm">Enter your idea on the left, and watch the AI craft optimized posts tailored for your platforms.</p>
-                        </div>
-
-                        <!-- Generated Content Cards (Hidden initially) -->
-                        <div id="generated-content" class="hidden space-y-4 animate-slide-up">
-                            
-                            <!-- LinkedIn Draft -->
-                            <div class="glass-card rounded-xl border border-white/5 overflow-hidden">
-                                <div class="bg-navy-800/50 px-4 py-2 border-b border-white/5 flex justify-between items-center">
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-brands fa-linkedin text-blue-500 text-lg"></i>
-                                        <span class="font-medium text-sm text-gray-200">LinkedIn Post</span>
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <button class="text-xs text-gray-400 hover:text-white px-2 py-1 rounded hover:bg-white/5 transition-colors" onclick="simulateRegenerate('li-content')"><i class="fa-solid fa-rotate-right"></i></button>
-                                        <button class="text-xs bg-navy-700/50 hover:bg-navy-500 text-white px-3 py-1 rounded transition-colors" onclick="copyText('li-content', this)"><i class="fa-regular fa-copy mr-1"></i> Copy</button>
-                                    </div>
-                                </div>
-                                <div class="p-5">
-                                    <div id="li-content" class="text-sm text-gray-300 whitespace-pre-wrap leading-relaxed relative">
-Hitting $10k MRR wasn't a straight line. 📈
-
-It took 8 months, 3 failed launches, and countless late nights. But the biggest lesson wasn't about marketing or sales.
-
-It was about customer retention. 
-
-Here are 3 things we changed that stopped our churn dead in its tracks:
-
-1️⃣ Proactive Onboarding: We stopped waiting for them to ask questions and started guiding them day 1.
-2️⃣ Personal Touch: Every premium user gets a 5-min personal welcome video. Unscalable? Yes. Effective? 100%.
-3️⃣ Value Metric Pricing: We aligned our pricing with the value they received, not just features.
-
-Growth is vanity. Retention is sanity.
-
-What's your best tip for keeping users happy? 👇
-
-#SaaS #Startups #Growth #FounderJourney
-                                    </div>
-                                    <!-- Skeleton Overlay -->
-                                    <div id="li-skeleton" class="hidden absolute inset-0 bg-navy-900/90 backdrop-blur-sm p-5 space-y-3 z-10">
-                                        <div class="h-4 skeleton-text w-3/4"></div>
-                                        <div class="h-4 skeleton-text w-full"></div>
-                                        <div class="h-4 skeleton-text w-5/6"></div>
-                                        <div class="h-4 skeleton-text w-1/2 mt-4"></div>
-                                        <div class="h-4 skeleton-text w-full"></div>
-                                        <div class="h-4 skeleton-text w-2/3"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- X Draft -->
-                            <div class="glass-card rounded-xl border border-white/5 overflow-hidden">
-                                <div class="bg-navy-800/50 px-4 py-2 border-b border-white/5 flex justify-between items-center">
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-brands fa-x-twitter text-gray-300 text-lg"></i>
-                                        <span class="font-medium text-sm text-gray-200">X Thread</span>
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <button class="text-xs bg-navy-700/50 hover:bg-navy-500 text-white px-3 py-1 rounded transition-colors" onclick="copyText('x-content', this)"><i class="fa-regular fa-copy mr-1"></i> Copy</button>
-                                    </div>
-                                </div>
-                                <div class="p-5">
-                                    <div id="x-content" class="text-sm text-gray-300 whitespace-pre-wrap leading-relaxed relative border-l-2 border-navy-500/30 pl-4 ml-2">
-Just crossed $10k MRR. 🎉
-
-The secret wasn't acquiring more users; it was keeping the ones we had. 
-
-A quick thread on how we slashed churn by 40% in 2 months: 🧵 (1/5)
-<br><br>
-First mistake: Assuming users knew how to use the product. 
-
-We implemented proactive onboarding. If a user didn't hit a 'success milestone' in 48 hours, they got a personalized email. Activation went up 2x. (2/5)
-                                    </div>
-                                    <button class="mt-3 text-xs text-navy-500 hover:text-white transition-colors"><i class="fa-solid fa-plus"></i> Add Tweet to Thread</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Page: Calendar Intelligence -->
-            <section id="page-calendar" class="page-content max-w-6xl mx-auto">
-                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Calendar Intelligence</h2>
-                        <p class="text-gray-400 text-sm mt-1">Smart scheduling aligned with your real-world events.</p>
-                    </div>
-                    <div class="flex bg-navy-800/50 p-1 rounded-lg border border-white/5">
-                        <button class="px-4 py-1.5 text-sm rounded-md bg-navy-500 text-white shadow">Month</button>
-                        <button class="px-4 py-1.5 text-sm rounded-md text-gray-400 hover:text-white">Week</button>
-                    </div>
-                </div>
-
-                <div class="glass-panel rounded-xl border border-white/5 overflow-hidden">
-                    <!-- Calendar Header -->
-                    <div class="flex items-center justify-between p-4 border-b border-white/5 bg-navy-800/30">
-                        <h3 class="text-lg font-semibold text-white">October 2023</h3>
-                        <div class="flex gap-2">
-                            <button class="w-8 h-8 rounded bg-navy-700/50 hover:bg-navy-600 flex items-center justify-center text-gray-300"><i class="fa-solid fa-chevron-left"></i></button>
-                            <button class="w-8 h-8 rounded bg-navy-700/50 hover:bg-navy-600 flex items-center justify-center text-gray-300"><i class="fa-solid fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-                    
-                    <!-- Days of Week -->
-                    <div class="grid grid-cols-7 border-b border-white/5 bg-navy-900/50 text-xs font-medium text-gray-400 text-center py-2">
-                        <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
-                    </div>
-
-                    <!-- Calendar Grid (Simulated) -->
-                    <div class="grid grid-cols-7 auto-rows-[100px] sm:auto-rows-[120px] bg-white/5 gap-[1px]">
-                        <!-- Empty days -->
-                        <div class="bg-[#0A2647] p-2 opacity-50"></div>
-                        <div class="bg-[#0A2647] p-2 opacity-50"></div>
-                        <!-- Dates -->
-                        <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors group relative">
-                            <span class="text-sm text-gray-400 group-hover:text-white">1</span>
-                        </div>
-                        <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative">
-                            <span class="text-sm text-gray-400">2</span>
-                            <!-- Event -->
-                            <div class="mt-1 text-[10px] bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded px-1.5 py-1 truncate cursor-pointer hover:bg-blue-500/30">
-                                <i class="fa-brands fa-linkedin"></i> Post Scheduled
-                            </div>
-                        </div>
-                        <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative">
-                            <span class="text-sm text-gray-400">3</span>
-                        </div>
-                        <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative">
-                            <span class="text-sm text-gray-400">4</span>
-                            <!-- Calendar Sync Event -->
-                            <div class="mt-1 text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded px-1.5 py-1 truncate relative group/tooltip cursor-help">
-                                <i class="fa-solid fa-video"></i> Product Webinar
-                                <!-- Tooltip Suggestion -->
-                                <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 bg-navy-800 text-white text-xs p-2 rounded shadow-lg border border-white/10 opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-10">
-                                    <span class="text-navy-500 font-bold block mb-1">AI Suggestion</span>
-                                    Generate a teaser post for this webinar.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative">
-                            <span class="text-sm text-gray-400">5</span>
-                        </div>
-                        
-                        <!-- Row 2 -->
-                         <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative"><span class="text-sm text-gray-400">6</span></div>
-                         <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative"><span class="text-sm text-gray-400">7</span></div>
-                         <div class="bg-[#0A2647] p-2 bg-navy-800/40 relative ring-1 ring-inset ring-navy-500">
-                            <span class="text-sm text-white font-bold bg-navy-500 w-6 h-6 rounded-full flex items-center justify-center mb-1">8</span>
-                            <!-- Current Day -->
-                            <div class="mt-1 text-[10px] bg-gray-500/20 text-gray-300 border border-gray-500/30 rounded px-1.5 py-1 truncate border-dashed cursor-pointer hover:bg-gray-500/40" onclick="navigate('generator')">
-                                <i class="fa-solid fa-plus"></i> Draft Content
-                            </div>
-                         </div>
-                         <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative"><span class="text-sm text-gray-400">9</span></div>
-                         <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative"><span class="text-sm text-gray-400">10</span></div>
-                         <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative"><span class="text-sm text-gray-400">11</span></div>
-                         <div class="bg-[#0A2647] p-2 hover:bg-navy-800/30 transition-colors relative"><span class="text-sm text-gray-400">12</span></div>
-                         
-                         <!-- Fill remaining loosely -->
-                         <div class="bg-[#0A2647] p-2"><span class="text-sm text-gray-600">...</span></div>
-                         <div class="bg-[#0A2647] p-2"></div><div class="bg-[#0A2647] p-2"></div><div class="bg-[#0A2647] p-2"></div><div class="bg-[#0A2647] p-2"></div><div class="bg-[#0A2647] p-2"></div><div class="bg-[#0A2647] p-2"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Page: Automation & Scheduling -->
-            <section id="page-scheduling" class="page-content max-w-4xl mx-auto">
-                <h2 class="text-2xl font-bold text-white mb-6">Automation & Scheduling</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Scheduler Form -->
-                    <div class="glass-panel rounded-xl p-6 border border-white/5 space-y-5">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-300 mb-2">Select Content to Schedule</label>
-                            <select class="w-full bg-navy-900/50 border border-white/10 rounded-lg p-2.5 text-sm text-gray-200 focus:outline-none focus:border-navy-500">
-                                <option>Draft: "Hitting $10k MRR..." (LinkedIn)</option>
-                                <option>Draft: "Hitting $10k MRR..." (X Thread)</option>
-                                <option>Draft: "Upcoming Webinar Promo"</option>
-                            </select>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-300 mb-2">Date</label>
-                                <input type="date" class="w-full bg-navy-900/50 border border-white/10 rounded-lg p-2.5 text-sm text-gray-200 focus:outline-none focus:border-navy-500 custom-scrollbar" value="2023-10-10">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-300 mb-2">Time</label>
-                                <input type="time" class="w-full bg-navy-900/50 border border-white/10 rounded-lg p-2.5 text-sm text-gray-200 focus:outline-none focus:border-navy-500" value="09:00">
-                            </div>
-                        </div>
-
-                        <div class="p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg flex items-start gap-3">
-                            <i class="fa-solid fa-lightbulb text-blue-400 mt-0.5"></i>
-                            <div class="text-xs text-blue-200">
-                                <span class="font-bold">Smart Timing:</span> Based on your audience, 9:15 AM on Tuesday yields 22% higher engagement. 
-                                <button class="text-navy-500 underline hover:text-white mt-1 block">Apply time</button>
-                            </div>
-                        </div>
-
-                        <div class="pt-4 border-t border-white/5">
-                            <label class="flex items-center justify-between cursor-pointer">
-                                <div>
-                                    <span class="block text-sm font-medium text-gray-200">Auto-Post</span>
-                                    <span class="block text-xs text-gray-500">Publish automatically at scheduled time</span>
-                                </div>
-                                <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                                    <input type="checkbox" name="toggle" id="toggle1" checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-navy-800 appearance-none cursor-pointer transition-all duration-300 z-10"/>
-                                    <label for="toggle1" class="toggle-label block overflow-hidden h-5 rounded-full bg-navy-800 cursor-pointer transition-colors duration-300 border border-white/10"></label>
-                                </div>
-                            </label>
-                        </div>
-
-                        <button class="w-full bg-navy-500 hover:bg-navy-700 text-white font-medium py-3 rounded-lg transition-colors shadow-lg">
-                            Schedule Post
-                        </button>
-                    </div>
-
-                    <!-- Preview -->
-                    <div class="glass-panel rounded-xl p-6 border border-white/5">
-                        <h3 class="text-sm font-semibold text-white mb-4">Post Preview</h3>
-                        <div class="bg-white rounded-lg p-4 shadow-sm">
-                            <!-- Simulated LinkedIn Preview -->
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                                    <img src="https://placehold.co/100x100/2C74B3/FFFFFF?text=Alex" alt="Avatar">
-                                </div>
-                                <div>
-                                    <p class="text-sm font-bold text-gray-900 leading-tight">Alex Mercer</p>
-                                    <p class="text-xs text-gray-500">Tech Founder</p>
-                                    <p class="text-[10px] text-gray-400">Just now • <i class="fa-solid fa-earth-americas"></i></p>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">Hitting $10k MRR wasn't a straight line. 📈<br><br>It took 8 months, 3 failed launches, and countless late nights...</p>
-                            <p class="text-sm text-gray-500 mt-2 font-semibold">...see more</p>
-                            
-                            <div class="mt-4 pt-3 border-t border-gray-100 flex justify-between text-gray-500 text-xs font-semibold px-2">
-                                <span class="hover:bg-gray-100 p-1 rounded flex items-center gap-1 cursor-pointer"><i class="fa-regular fa-thumbs-up"></i> Like</span>
-                                <span class="hover:bg-gray-100 p-1 rounded flex items-center gap-1 cursor-pointer"><i class="fa-regular fa-comment"></i> Comment</span>
-                                <span class="hover:bg-gray-100 p-1 rounded flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-retweet"></i> Repost</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Page: Engagement Intel (Simplified for brevity) -->
-            <section id="page-engagement" class="page-content max-w-5xl mx-auto">
-                 <h2 class="text-2xl font-bold text-white mb-6">Engagement Intelligence</h2>
-                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="glass-card p-5 rounded-xl border border-white/5">
-                        <p class="text-gray-400 text-sm mb-1">Brand Health Score</p>
-                        <h3 class="text-3xl font-bold text-emerald-400">85/100</h3>
-                        <p class="text-xs text-gray-500 mt-2">Top 10% in your niche</p>
-                    </div>
-                     <div class="glass-card p-5 rounded-xl border border-white/5 md:col-span-2">
-                         <h3 class="font-semibold text-white mb-4">Content Performance Matrix</h3>
-                         <!-- Placeholder for a scatter plot or heatmap -->
-                         <div class="h-32 w-full bg-navy-900/50 rounded-lg flex items-center justify-center border border-white/5 border-dashed">
-                             <span class="text-gray-500 text-sm"><i class="fa-solid fa-chart-scatter"></i> Detailed Chart Rendered Here</span>
-                         </div>
-                     </div>
-                 </div>
-                 
-                 <div class="glass-panel p-6 rounded-xl border border-white/5">
-                     <h3 class="font-semibold text-white mb-4">AI Recommendations</h3>
-                     <ul class="space-y-3">
-                         <li class="flex gap-3 text-sm text-gray-300 items-start">
-                             <i class="fa-solid fa-arrow-up-right-dots text-emerald-400 mt-1"></i>
-                             <div><strong class="text-white block">Post more of:</strong> Personal founder stories. They drive 40% more comments than product updates.</div>
-                         </li>
-                         <li class="flex gap-3 text-sm text-gray-300 items-start">
-                             <i class="fa-solid fa-clock text-blue-400 mt-1"></i>
-                             <div><strong class="text-white block">Optimal timing shift:</strong> Try moving your morning posts from 8 AM to 9:30 AM based on recent active follower data.</div>
-                         </li>
-                     </ul>
-                 </div>
-            </section>
-
-            <!-- Page: Profile Analysis (Simplified) -->
-            <section id="page-profile" class="page-content max-w-5xl mx-auto">
-                <h2 class="text-2xl font-bold text-white mb-6">Profile Analysis</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass-panel p-6 rounded-xl border border-white/5">
-                        <h3 class="font-semibold text-white mb-4">Audience Demographics</h3>
-                        <div class="relative h-64 w-full flex justify-center">
-                            <canvas id="audienceChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="glass-panel p-6 rounded-xl border border-white/5">
-                        <h3 class="font-semibold text-white mb-4">Bio Optimization</h3>
-                        <div class="p-4 bg-navy-900/50 rounded-lg border border-white/5 mb-4">
-                            <p class="text-sm text-gray-400 mb-1">Current Bio</p>
-                            <p class="text-white text-sm">Building tools for creators. Tech enthusiast. Coffee lover.</p>
-                        </div>
-                        <div class="p-4 bg-navy-800/80 rounded-lg border border-navy-500/50 relative overflow-hidden">
-                            <div class="absolute right-0 top-0 text-navy-500/20 text-4xl p-2"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                            <p class="text-sm text-gray-400 mb-1">AI Suggested Bio</p>
-                            <p class="text-white text-sm font-medium">Founder @BrandForgeAI | Helping creators scale their audience to 10k+ using automation. 🚀 Building in public.</p>
-                            <button class="mt-3 text-xs bg-navy-500 hover:bg-navy-700 text-white px-3 py-1.5 rounded transition-colors">Apply Suggestion</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Page: Settings -->
-            <section id="page-settings" class="page-content max-w-3xl mx-auto">
-                <h2 class="text-2xl font-bold text-white mb-6">Settings & Integrations</h2>
-                
-                <div class="space-y-6">
-                    <!-- Social Integrations -->
-                    <div class="glass-panel rounded-xl p-6 border border-white/5">
-                        <h3 class="text-lg font-semibold text-white mb-4 border-b border-white/10 pb-2">Connected Accounts</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded bg-[#0077B5]/20 flex items-center justify-center text-[#0077B5] text-xl"><i class="fa-brands fa-linkedin"></i></div>
-                                    <div>
-                                        <p class="text-sm font-medium text-white">LinkedIn</p>
-                                        <p class="text-xs text-gray-400">Connected as Alex Mercer</p>
-                                    </div>
-                                </div>
-                                <button class="text-xs border border-red-500/50 text-red-400 hover:bg-red-500/10 px-3 py-1.5 rounded transition-colors">Disconnect</button>
-                            </div>
-                            
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded bg-white/10 flex items-center justify-center text-white text-xl"><i class="fa-brands fa-x-twitter"></i></div>
-                                    <div>
-                                        <p class="text-sm font-medium text-white">X (Twitter)</p>
-                                        <p class="text-xs text-gray-400">Connected as @alexm</p>
-                                    </div>
-                                </div>
-                                <button class="text-xs border border-red-500/50 text-red-400 hover:bg-red-500/10 px-3 py-1.5 rounded transition-colors">Disconnect</button>
-                            </div>
-
-                            <div class="flex items-center justify-between opacity-60">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 opacity-20 flex items-center justify-center text-white text-xl"><i class="fa-brands fa-instagram"></i></div>
-                                    <div>
-                                        <p class="text-sm font-medium text-white">Instagram</p>
-                                        <p class="text-xs text-gray-400">Not connected</p>
-                                    </div>
-                                </div>
-                                <button class="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded transition-colors">Connect</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- AI Preferences -->
-                    <div class="glass-panel rounded-xl p-6 border border-white/5">
-                        <h3 class="text-lg font-semibold text-white mb-4 border-b border-white/10 pb-2">AI Preferences</h3>
-                        <div class="space-y-4">
-                            <label class="flex items-center justify-between cursor-pointer">
-                                <div>
-                                    <span class="block text-sm font-medium text-gray-200">Auto-generate Hashtags</span>
-                                </div>
-                                <div class="relative inline-block w-10 align-middle select-none">
-                                    <input type="checkbox" checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-navy-800 appearance-none cursor-pointer transition-all duration-300 z-10"/>
-                                    <label class="toggle-label block overflow-hidden h-5 rounded-full bg-navy-800 cursor-pointer transition-colors duration-300 border border-white/10"></label>
-                                </div>
-                            </label>
-                             <label class="flex items-center justify-between cursor-pointer">
-                                <div>
-                                    <span class="block text-sm font-medium text-gray-200">Default Tone</span>
-                                </div>
-                                <select class="bg-navy-900 border border-white/10 text-xs text-gray-300 rounded px-2 py-1 outline-none">
-                                    <option>Professional</option>
-                                    <option>Conversational</option>
-                                </select>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Floating AI Assistant Button -->
-    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-navy-500 to-navy-700 text-white shadow-lg shadow-navy-500/40 flex items-center justify-center hover:scale-105 transition-transform z-50 group">
-        <i class="fa-solid fa-sparkles text-xl group-hover:animate-pulse"></i>
-    </button>
-
-    <!-- AI Chat Window (Hidden) -->
-    <div id="ai-chat-window" class="fixed bottom-24 right-6 w-80 h-96 glass-panel rounded-2xl border border-white/10 shadow-2xl flex flex-col z-50 transition-all duration-300 transform scale-95 opacity-0 pointer-events-none origin-bottom-right">
-        <!-- Header -->
-        <div class="p-4 border-b border-white/10 flex justify-between items-center bg-navy-800/80 rounded-t-2xl">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span class="font-medium text-white text-sm">BrandForge Assistant</span>
-            </div>
-            <button onclick="toggleChat()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <!-- Body -->
-        <div class="flex-1 p-4 overflow-y-auto custom-scrollbar flex flex-col gap-3">
-            <div class="self-start max-w-[85%] bg-navy-800/50 border border-white/5 p-3 rounded-2xl rounded-tl-sm text-sm text-gray-200">
-                Hi Alex! Need help analyzing your recent metrics or drafting a quick post?
-            </div>
-            <!-- Dummy user message -->
-            <div class="self-end max-w-[85%] bg-navy-500/80 border border-navy-500 p-3 rounded-2xl rounded-tr-sm text-sm text-white mt-auto">
-                What's the best time to post today?
             </div>
         </div>
-        <!-- Input -->
-        <div class="p-3 border-t border-white/10 bg-navy-900/50 rounded-b-2xl">
-            <div class="relative">
-                <input type="text" placeholder="Ask AI..." class="w-full bg-navy-800/80 border border-white/10 rounded-full py-2 pl-4 pr-10 text-sm text-white focus:outline-none focus:border-navy-500">
-                <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-navy-500 hover:text-white transition-colors w-7 h-7 flex items-center justify-center rounded-full bg-white/5"><i class="fa-solid fa-paper-plane text-xs"></i></button>
-            </div>
-        </div>
-    </div>
+    </nav>
 
-    <!-- Notification Toast (Hidden) -->
-    <div id="toast" class="fixed top-24 right-6 bg-navy-800 border border-navy-500 text-white px-4 py-3 rounded-lg shadow-lg transform translate-x-[150%] transition-transform duration-300 z-50 flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-emerald-400"></i>
-        <span id="toast-msg" class="text-sm font-medium">Action successful</span>
-    </div>
-
-    <!-- Core Logic -->
-    <script>
+    <!-- Main Content -->
+    <main class="relative z-10 flex-grow">
         
-        // --- Navigation Logic ---
-        function navigate(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page-content').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Remove active state from nav items
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // Show selected page
-            const targetPage = document.getElementById(`page-${pageId}`);
-            if(targetPage) targetPage.classList.add('active');
-
-            // Set active state on nav item
-            const targetNav = document.getElementById(`nav-${pageId}`);
-            if(targetNav) targetNav.classList.add('active');
-
-            // Close mobile sidebar if open
-            if(window.innerWidth < 1024) {
-                toggleSidebar();
-            }
-
-            // Scroll to top
-            document.getElementById('main-scroll-area').scrollTop = 0;
-
-            // Trigger chart render if needed (simplistic lazy load)
-            if (pageId === 'dashboard' && !window.dashboardChartRendered) {
-                renderDashboardCharts();
-                window.dashboardChartRendered = true;
-            }
-            if (pageId === 'profile' && !window.profileChartRendered) {
-                renderProfileCharts();
-                window.profileChartRendered = true;
-            }
-        }
-
-        // --- Mobile Sidebar Toggle ---
-        let sidebarOpen = false;
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-            sidebarOpen = !sidebarOpen;
-            
-            if (sidebarOpen) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
-
-        // --- Content Generator Logic ---
-        function selectTone(btn) {
-            // Remove active from all tone buttons in the group
-            const buttons = btn.parentElement.querySelectorAll('.tone-btn');
-            buttons.forEach(b => {
-                b.classList.remove('active', 'bg-navy-700/50', 'border-navy-500', 'text-white');
-                b.classList.add('bg-navy-800/30', 'border-white/5', 'text-gray-400');
-            });
-            // Add active to clicked
-            btn.classList.add('active', 'bg-navy-700/50', 'border-navy-500', 'text-white');
-            btn.classList.remove('bg-navy-800/30', 'border-white/5', 'text-gray-400');
-        }
-
-        function generateContent() {
-            const input = document.getElementById('prompt-input').value;
-            if(!input.trim()) {
-                showToast("Please enter an idea first.");
-                return;
-            }
-
-            // Hide empty state, show generated content area
-            document.getElementById('empty-state').classList.add('hidden');
-            document.getElementById('generated-content').classList.remove('hidden');
-            
-            // Simulate loading on all generated boxes
-            simulateRegenerate('li-content');
-            
-            // Simulate generation delay for UX
-            showToast("AI is crafting your posts...");
-        }
-
-        function simulateRegenerate(contentId) {
-            const contentDiv = document.getElementById(contentId);
-            // Get the specific skeleton related to this content block
-            // In a real app, IDs would be managed better, using parent logic here
-            const parent = contentDiv.parentElement;
-            const skeleton = parent.querySelector('[id$="-skeleton"]');
-            
-            if(skeleton) {
-                contentDiv.style.opacity = '0.2';
-                skeleton.classList.remove('hidden');
+        <!-- Hero Section -->
+        <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 flex items-center min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 
-                setTimeout(() => {
-                    contentDiv.style.opacity = '1';
-                    skeleton.classList.add('hidden');
-                    // In a real app, contentDiv.innerHTML would be updated here
-                }, 1500 + Math.random() * 1000); // Random 1.5 - 2.5s delay
+                <div class="inline-block mb-4 px-4 py-1 rounded-full glass border border-brand-purple/30 text-brand-cyan text-sm tracking-wider font-semibold animate-pulse-slow">
+                    BEYOND ORDINARY BRANDING
+                </div>
+
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6">
+                    Forge Your <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-brand-purple to-brand-magenta text-glow animate-float inline-block mt-2">
+                        Digital Universe
+                    </span>
+                </h1>
+                
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-400 mb-10">
+                    We craft interstellar brand identities and digital experiences that defy gravity. Stand out in the cosmic void of the internet.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <button class="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-space-900 font-bold text-lg hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                        Launch Project
+                    </button>
+                    <button class="w-full sm:w-auto px-8 py-4 rounded-full glass border border-gray-600 text-white font-medium text-lg hover:bg-white/10 transition-colors flex items-center justify-center group">
+                        Explore Orbit 
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4">Our Constellation of <span class="text-brand-purple">Services</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Everything you need to establish a dominant presence across the digital galaxy.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service 1 -->
+                    <div class="glass-card rounded-2xl p-8 rounded-tr-[50px]">
+                        <div class="w-14 h-14 rounded-full bg-brand-cyan/20 flex items-center justify-center mb-6 border border-brand-cyan/30">
+                            <svg class="w-7 h-7 text-brand-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Brand Strategy</h3>
+                        <p class="text-gray-400">Defining your gravitational pull. We build the core strategy that attracts your ideal audience and keeps them in orbit.</p>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="glass-card rounded-2xl p-8">
+                        <div class="w-14 h-14 rounded-full bg-brand-purple/20 flex items-center justify-center mb-6 border border-brand-purple/30">
+                            <svg class="w-7 h-7 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Digital Interface</h3>
+                        <p class="text-gray-400">Sleek, futuristic, and highly converting web and app designs. We build interfaces that feel like tomorrow.</p>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="glass-card rounded-2xl p-8 rounded-bl-[50px]">
+                        <div class="w-14 h-14 rounded-full bg-brand-magenta/20 flex items-center justify-center mb-6 border border-brand-magenta/30">
+                            <svg class="w-7 h-7 text-brand-magenta" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Visual Identity</h3>
+                        <p class="text-gray-400">Logos, typography, and visual assets that shine brighter than a supernova. Stand out immediately.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-24 relative overflow-hidden">
+            <!-- Decorative planet glow -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-purple/20 rounded-full blur-[120px] pointer-events-none"></div>
+            
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="glass border-brand-cyan/20 rounded-[40px] p-10 md:p-16 text-center shadow-[0_0_50px_rgba(0,242,254,0.1)]">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to expand your universe?</h2>
+                    <p class="text-xl text-gray-300 mb-10">Join the top-tier brands dominating their digital space. Let's build something extraordinary together.</p>
+                    <button class="px-10 py-5 rounded-full bg-gradient-to-r from-brand-cyan via-brand-purple to-brand-magenta text-white font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_rgba(79,172,254,0.4)]">
+                        Initiate Sequence
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 glass border-t border-white/10 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div class="mb-6 md:mb-0">
+                    <span class="text-2xl font-bold tracking-widest text-white">BRANDFORGE</span>
+                    <p class="text-gray-500 mt-2 text-sm">Forging digital universes since 2026.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-brand-cyan transition-colors">Twitter</a>
+                    <a href="#" class="text-gray-500 hover:text-brand-purple transition-colors">LinkedIn</a>
+                    <a href="#" class="text-gray-500 hover:text-brand-magenta transition-colors">Instagram</a>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-sm text-gray-600">
+                &copy; 2026 BRANDFORGE INC. All rights reserved across the galaxy.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Starfield Logic -->
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let stars = [];
+        const numStars = 800; // Adjust for density
+        const speed = 0.5; // Warp speed multiplier
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetMouseX = 0;
+        let targetMouseY = 0;
+
+        // Setup Canvas Size
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            initStars();
+        }
+
+        // Star Object definition
+        class Star {
+            constructor() {
+                this.reset();
+                // Randomize initial Z so they don't all spawn at the back at once
+                this.z = Math.random() * width; 
+            }
+
+            reset() {
+                this.x = (Math.random() - 0.5) * width * 2; // Spread wider than screen
+                this.y = (Math.random() - 0.5) * height * 2;
+                this.z = width; // Start far away
+                this.pz = this.z; // Previous Z for drawing lines (warp effect)
+                this.size = Math.random() * 1.5 + 0.5;
+                // Randomize star colors slightly
+                const colors = ['#ffffff', '#e0f7fa', '#f3e5f5', '#bbdefb'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.pz = this.z;
+                
+                // Move star closer (decrease depth)
+                this.z -= speed * (width * 0.005); 
+
+                // Reset if it goes past the screen
+                if (this.z < 1) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                // Parallax shift based on mouse position
+                const shiftX = (mouseX * this.z) / width * 0.5;
+                const shiftY = (mouseY * this.z) / height * 0.5;
+
+                // 3D to 2D projection
+                const sx = (this.x / this.z) * width + (width / 2) - shiftX;
+                const sy = (this.y / this.z) * height + (height / 2) - shiftY;
+
+                // Project previous position for motion blur/warp lines
+                const px = (this.x / this.pz) * width + (width / 2) - shiftX;
+                const py = (this.y / this.pz) * height + (height / 2) - shiftY;
+
+                // Calculate apparent size and opacity based on depth
+                const r = this.size * (width / this.z);
+                const opacity = 1 - (this.z / width);
+
+                ctx.beginPath();
+                // If moving fast, draw lines. If slow, just circles. We'll draw tiny lines to simulate motion.
+                ctx.moveTo(px, py);
+                ctx.lineTo(sx, sy);
+                
+                ctx.lineWidth = r;
+                ctx.lineCap = "round";
+                ctx.strokeStyle = `rgba(${this.hexToRgb(this.color)}, ${opacity})`;
+                ctx.stroke();
+            }
+
+            // Helper to convert hex to rgb for opacity control
+            hexToRgb(hex) {
+                let r = 0, g = 0, b = 0;
+                if (hex.length == 7) {
+                    r = parseInt(hex.substring(1,3), 16);
+                    g = parseInt(hex.substring(3,5), 16);
+                    b = parseInt(hex.substring(5,7), 16);
+                }
+                return `${r}, ${g}, ${b}`;
             }
         }
 
-        // --- Utility Functions ---
-        function copyText(elementId, btnElement) {
-            const text = document.getElementById(elementId).innerText;
-            // Create temporary textarea to copy formatting properly
-            const el = document.createElement('textarea');
-            el.value = text;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-
-            // Button feedback
-            const originalHTML = btnElement.innerHTML;
-            btnElement.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Copied';
-            btnElement.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border', 'border-emerald-500/50');
-            btnElement.classList.remove('bg-navy-700/50', 'text-white');
-            
-            setTimeout(() => {
-                btnElement.innerHTML = originalHTML;
-                btnElement.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border', 'border-emerald-500/50');
-                btnElement.classList.add('bg-navy-700/50', 'text-white');
-            }, 2000);
-            
-            showToast("Copied to clipboard");
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = msg;
-            toast.classList.remove('translate-x-[150%]');
-            setTimeout(() => {
-                toast.classList.add('translate-x-[150%]');
-            }, 3000);
+        // Animation Loop
+        function animate() {
+            // Smooth mouse trailing
+            mouseX += (targetMouseX - mouseX) * 0.05;
+            mouseY += (targetMouseY - mouseY) * 0.05;
+
+            // Fade out previous frame to create motion blur while keeping canvas transparent for the video
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over';
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            requestAnimationFrame(animate);
         }
 
-        let chatOpen = false;
-        function toggleChat() {
-            const chat = document.getElementById('ai-chat-window');
-            chatOpen = !chatOpen;
-            if(chatOpen) {
-                chat.classList.remove('scale-95', 'opacity-0', 'pointer-events-none');
-                chat.classList.add('scale-100', 'opacity-100');
+        // Event Listeners
+        window.addEventListener('resize', resize);
+        
+        window.addEventListener('mousemove', (e) => {
+            targetMouseX = e.clientX - width / 2;
+            targetMouseY = e.clientY - height / 2;
+        });
+
+        // Touch support for mobile parallax
+        window.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 0) {
+                targetMouseX = e.touches[0].clientX - width / 2;
+                targetMouseY = e.touches[0].clientY - height / 2;
+            }
+        });
+
+        // Add scrolled class to navbar for glass effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('bg-space-900/50', 'backdrop-blur-md');
+                nav.classList.remove('glass');
             } else {
-                chat.classList.add('scale-95', 'opacity-0', 'pointer-events-none');
-                chat.classList.remove('scale-100', 'opacity-100');
+                nav.classList.remove('bg-space-900/50', 'backdrop-blur-md');
+                nav.classList.add('glass');
             }
-        }
+        });
 
-        // --- Chart.js Initializations ---
-        Chart.defaults.color = '#9ca3af'; // Tailwind gray-400
-        Chart.defaults.font.family = 'Inter, sans-serif';
-
-        function renderDashboardCharts() {
-            const ctx = document.getElementById('engagementChart').getContext('2d');
-            
-            // Gradient for line chart
-            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, 'rgba(44, 116, 179, 0.5)'); // navy-500
-            gradient.addColorStop(1, 'rgba(44, 116, 179, 0)');
-
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    datasets: [{
-                        label: 'Engagement',
-                        data: [1200, 1900, 1500, 2200, 1800, 2800, 2400],
-                        borderColor: '#2C74B3',
-                        backgroundColor: gradient,
-                        borderWidth: 2,
-                        pointBackgroundColor: '#0A2647',
-                        pointBorderColor: '#2C74B3',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6,
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { 
-                            beginAtZero: true,
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                            border: { display: false }
-                        },
-                        x: { 
-                            grid: { display: false },
-                            border: { display: false }
-                        }
-                    },
-                    interaction: { mode: 'index', intersect: false }
-                }
-            });
-        }
-
-        function renderProfileCharts() {
-            const ctx = document.getElementById('audienceChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Founders', 'Marketers', 'Engineers', 'Other'],
-                    datasets: [{
-                        data: [45, 25, 20, 10],
-                        backgroundColor: ['#2C74B3', '#205295', '#144272', '#0A2647'],
-                        borderColor: '#0A2647',
-                        borderWidth: 2,
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'right', labels: { color: '#e5e7eb' } }
-                    },
-                    cutout: '75%'
-                }
-            });
-        }
-
-        // Initialize first page
-        window.onload = function() {
-            navigate('dashboard');
-        };
-
+        // Initialize
+        resize();
+        animate();
     </script>
 </body>
 </html>
