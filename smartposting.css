@@ -1,0 +1,2080 @@
+/* ==========================================
+   BuildForge AI - Smart Posting Reminder
+   File: smartposting.css
+   Part 1 - Global, Header & Hero
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+
+    --bg:#0A2647;
+    --secondary:#144272;
+    --primary:#205295;
+    --accent:#2C74B3;
+
+    --white:#ffffff;
+    --text:#dce7f7;
+
+    --glass:rgba(255,255,255,.08);
+    --glass2:rgba(255,255,255,.05);
+
+    --border:rgba(255,255,255,.15);
+
+    --shadow:0 15px 45px rgba(0,0,0,.35);
+
+    --radius:22px;
+
+}
+
+/* ========================= */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:linear-gradient(135deg,#0A2647,#144272,#205295);
+
+    color:var(--white);
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    position:relative;
+
+}
+
+/* ========================= */
+/* Scrollbar */
+/* ========================= */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#081d37;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#2C74B3;
+
+    border-radius:30px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#4e97d8;
+
+}
+
+/* ========================= */
+/* Animated Background */
+/* ========================= */
+
+.bg-animation{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    z-index:-1;
+
+}
+
+.bg-animation span{
+
+    position:absolute;
+
+    display:block;
+
+    border-radius:50%;
+
+    filter:blur(70px);
+
+    animation:float 18s linear infinite;
+
+    opacity:.45;
+
+}
+
+.bg-animation span:nth-child(1){
+
+    width:280px;
+    height:280px;
+
+    background:#2C74B3;
+
+    top:5%;
+    left:8%;
+
+}
+
+.bg-animation span:nth-child(2){
+
+    width:360px;
+    height:360px;
+
+    background:#205295;
+
+    bottom:10%;
+    right:8%;
+
+    animation-duration:24s;
+
+}
+
+.bg-animation span:nth-child(3){
+
+    width:220px;
+    height:220px;
+
+    background:#144272;
+
+    top:55%;
+    left:45%;
+
+    animation-duration:20s;
+
+}
+
+.bg-animation span:nth-child(4){
+
+    width:300px;
+    height:300px;
+
+    background:#3f9df0;
+
+    top:20%;
+    right:25%;
+
+    animation-duration:28s;
+
+}
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0) scale(1);
+
+    }
+
+    50%{
+
+        transform:translateY(-80px) scale(1.15);
+
+    }
+
+    100%{
+
+        transform:translateY(0) scale(1);
+
+    }
+
+}
+
+/* ========================= */
+/* Header */
+/* ========================= */
+
+.header{
+
+    width:92%;
+
+    margin:40px auto;
+
+    padding:35px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:40px;
+
+    background:var(--glass);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.logo i{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(135deg,#205295,#2C74B3);
+
+    font-size:30px;
+
+    box-shadow:0 0 30px rgba(44,116,179,.6);
+
+}
+
+.logo h2{
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+.header-text{
+
+    flex:1;
+
+}
+
+.header-text h1{
+
+    font-size:46px;
+
+    font-weight:800;
+
+    margin-bottom:12px;
+
+    background:linear-gradient(90deg,#ffffff,#5ab4ff);
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+.header-text p{
+
+    color:#cbd8f0;
+
+    line-height:1.7;
+
+    font-size:17px;
+
+    max-width:760px;
+
+}
+
+/* ========================= */
+/* Dashboard */
+/* ========================= */
+
+.dashboard{
+
+    width:92%;
+
+    margin:auto;
+
+    padding-bottom:80px;
+
+}
+
+/* ========================= */
+/* Hero Card */
+/* ========================= */
+
+.hero-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:50px;
+
+    padding:40px;
+
+    margin-top:35px;
+
+    background:var(--glass);
+
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:28px;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.hero-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+
+    height:240px;
+
+    background:#2C74B3;
+
+    border-radius:50%;
+
+    filter:blur(100px);
+
+    right:-70px;
+
+    top:-70px;
+
+    opacity:.25;
+
+}
+
+/* ========================= */
+
+.hero-left{
+
+    flex:1;
+
+}
+
+.hero-left h2{
+
+    font-size:34px;
+
+    margin-bottom:25px;
+
+}
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 20px;
+
+    border-radius:30px;
+
+    background:rgba(44,116,179,.18);
+
+    border:1px solid rgba(44,116,179,.35);
+
+    color:#8fe0b4;
+
+    font-weight:600;
+
+    margin-bottom:28px;
+
+}
+
+.status i{
+
+    color:#48ff92;
+
+}
+
+/* ========================= */
+/* Button */
+/* ========================= */
+
+.primary-btn{
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    padding:16px 34px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    border-radius:50px;
+
+    color:#fff;
+
+    background:linear-gradient(135deg,#205295,#2C74B3);
+
+    transition:.35s;
+
+    box-shadow:0 10px 30px rgba(44,116,179,.4);
+
+}
+
+.primary-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 40px rgba(44,116,179,.6);
+
+}
+
+/* ========================= */
+/* Hero Right */
+/* ========================= */
+
+.hero-right{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.progress-circle{
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:conic-gradient(
+        #2C74B3 0%,
+        #2C74B3 96%,
+        rgba(255,255,255,.08) 96%
+    );
+
+    animation:rotateCircle 3s ease;
+
+}
+
+.circle{
+
+    width:170px;
+
+    height:170px;
+
+    border-radius:50%;
+
+    background:#0A2647;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    box-shadow:inset 0 0 30px rgba(255,255,255,.05);
+
+}
+
+.circle h2{
+
+    font-size:48px;
+
+    font-weight:800;
+
+}
+
+.circle span{
+
+    margin-top:8px;
+
+    color:#b6caea;
+
+    font-size:15px;
+
+}
+
+@keyframes rotateCircle{
+
+    from{
+
+        transform:rotate(-180deg);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:rotate(0deg);
+
+        opacity:1;
+
+    }
+
+}
+
+/* ========================= */
+/* Section Titles */
+/* ========================= */
+
+.section-title{
+
+    margin-top:70px;
+
+    margin-bottom:28px;
+
+}
+
+.section-title h2{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+.section-title i{
+
+    color:#4aa9ff;
+
+    text-shadow:0 0 20px #2C74B3;
+
+}
+/* ==========================================
+   BuildForge AI - Smart Posting Reminder
+   File: smartposting.css
+   Part 2 - Timeline, Cards & AI Recommendation
+==========================================*/
+
+/* ========================= */
+/* Timeline */
+/* ========================= */
+
+.timeline{
+
+    position:relative;
+
+    margin-top:30px;
+
+    padding-left:70px;
+
+}
+
+.timeline::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:28px;
+
+    top:0;
+
+    width:4px;
+
+    height:100%;
+
+    border-radius:20px;
+
+    background:linear-gradient(
+        to bottom,
+        var(--accent),
+        var(--primary)
+    );
+
+    box-shadow:0 0 18px rgba(44,116,179,.7);
+
+}
+
+.timeline-item{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:30px;
+
+    margin-bottom:40px;
+
+    animation:fadeUp .8s ease both;
+
+}
+
+.timeline-item::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-54px;
+
+    top:8px;
+
+    width:20px;
+
+    height:20px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+
+    border:5px solid #0A2647;
+
+    box-shadow:0 0 18px var(--accent);
+
+}
+
+.timeline-item.active::before{
+
+    background:#4cff88;
+
+    box-shadow:0 0 22px #4cff88;
+
+}
+
+.timeline-item.post-now::before{
+
+    width:24px;
+
+    height:24px;
+
+    background:#ffd43b;
+
+    box-shadow:0 0 28px #ffd43b;
+
+}
+
+.time{
+
+    min-width:120px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#9ecfff;
+
+    letter-spacing:.5px;
+
+}
+
+.content{
+
+    flex:1;
+
+    background:var(--glass);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    backdrop-filter:blur(15px);
+
+    padding:22px;
+
+    transition:.35s;
+
+}
+
+.content:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 20px 35px rgba(0,0,0,.35);
+
+    border-color:rgba(44,116,179,.45);
+
+}
+
+.content h3{
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+}
+
+.content p{
+
+    color:#d6e4ff;
+
+    line-height:1.6;
+
+    font-size:15px;
+
+}
+
+.post-now .content{
+
+    background:linear-gradient(
+        135deg,
+        rgba(44,116,179,.25),
+        rgba(32,82,149,.15)
+    );
+
+    border:1px solid rgba(255,215,0,.45);
+
+    animation:pulseCard 2s infinite;
+
+}
+
+/* ========================= */
+/* Reminder Cards */
+/* ========================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:28px;
+
+}
+
+.card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:var(--glass);
+
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:22px;
+
+    padding:35px;
+
+    text-align:center;
+
+    transition:.4s;
+
+    box-shadow:var(--shadow);
+
+}
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    background:rgba(44,116,179,.18);
+
+    border-radius:50%;
+
+    top:-80px;
+
+    right:-80px;
+
+    filter:blur(45px);
+
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:rgba(44,116,179,.5);
+
+    box-shadow:0 25px 45px rgba(0,0,0,.45);
+
+}
+
+.card i{
+
+    font-size:52px;
+
+    color:var(--accent);
+
+    margin-bottom:20px;
+
+    text-shadow:0 0 20px rgba(44,116,179,.8);
+
+}
+
+.card h3{
+
+    font-size:24px;
+
+    margin-bottom:12px;
+
+}
+
+.card h4{
+
+    font-size:18px;
+
+    color:#8ec8ff;
+
+    margin-bottom:10px;
+
+}
+
+.card p{
+
+    color:#dce7f7;
+
+    margin-bottom:22px;
+
+    font-size:15px;
+
+}
+
+/* ========================= */
+/* Badges */
+/* ========================= */
+
+.badge{
+
+    display:inline-block;
+
+    padding:9px 18px;
+
+    border-radius:40px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+}
+
+.blue{
+
+    background:#205295;
+
+    color:#fff;
+
+}
+
+.green{
+
+    background:#2ecc71;
+
+    color:#fff;
+
+}
+
+.red{
+
+    background:#ff5a6b;
+
+    color:#fff;
+
+}
+
+/* ========================= */
+/* AI Recommendation */
+/* ========================= */
+
+.recommendation{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+    gap:25px;
+
+}
+
+.recommend-box{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:linear-gradient(
+        135deg,
+        rgba(20,66,114,.85),
+        rgba(44,116,179,.18)
+    );
+
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:22px;
+
+    padding:35px;
+
+    transition:.35s;
+
+    box-shadow:var(--shadow);
+
+}
+
+.recommend-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+
+    height:150px;
+
+    background:rgba(44,116,179,.2);
+
+    border-radius:50%;
+
+    right:-70px;
+
+    top:-70px;
+
+    filter:blur(35px);
+
+}
+
+.recommend-box:hover{
+
+    transform:translateY(-8px);
+
+    border-color:rgba(44,116,179,.5);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.4);
+
+}
+
+.recommend-box h3{
+
+    color:#9ecfff;
+
+    font-size:18px;
+
+    margin-bottom:18px;
+
+}
+
+.recommend-box h1{
+
+    font-size:42px;
+
+    font-weight:800;
+
+    color:#fff;
+
+    text-shadow:0 0 18px rgba(44,116,179,.6);
+
+}
+
+/* ========================= */
+/* Animations */
+/* ========================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes pulseCard{
+
+    0%{
+
+        box-shadow:0 0 0 rgba(255,215,0,0);
+
+    }
+
+    50%{
+
+        box-shadow:0 0 28px rgba(255,215,0,.45);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 rgba(255,215,0,0);
+
+    }
+
+}
+/* ==========================================
+   BuildForge AI - Smart Posting Reminder
+   File: smartposting.css
+   Part 3 - Notification, Calendar & Settings
+==========================================*/
+
+/* ========================= */
+/* Live Reminder Notification */
+/* ========================= */
+
+.notification{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:25px;
+
+    padding:28px 35px;
+
+    background:var(--glass);
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.notification::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    background:rgba(44,116,179,.18);
+
+    border-radius:50%;
+
+    top:-100px;
+
+    right:-100px;
+
+    filter:blur(45px);
+
+}
+
+.notification:hover{
+
+    transform:translateY(-6px);
+
+    border-color:rgba(44,116,179,.5);
+
+}
+
+.notify-icon{
+
+    width:75px;
+
+    height:75px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:30px;
+
+    color:#fff;
+
+    box-shadow:0 0 25px rgba(44,116,179,.6);
+
+    animation:ring 2s infinite;
+
+}
+
+.notify-text{
+
+    flex:1;
+
+}
+
+.notify-text h3{
+
+    font-size:26px;
+
+    margin-bottom:8px;
+
+}
+
+.notify-text p{
+
+    color:#dce7f7;
+
+    line-height:1.6;
+
+    margin-bottom:10px;
+
+}
+
+.notify-text span{
+
+    color:#7ed6ff;
+
+    font-weight:600;
+
+}
+
+.post-btn{
+
+    padding:15px 30px;
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    border-radius:40px;
+
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+    box-shadow:0 10px 25px rgba(44,116,179,.45);
+
+}
+
+.post-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(44,116,179,.7);
+
+}
+
+/* ========================= */
+/* Weekly Calendar */
+/* ========================= */
+
+.calendar{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:18px;
+
+    padding:35px;
+
+    background:var(--glass);
+
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:22px;
+
+    box-shadow:var(--shadow);
+
+    text-align:center;
+
+}
+
+.calendar div{
+
+    font-weight:700;
+
+    color:#8ec8ff;
+
+    padding-bottom:10px;
+
+}
+
+.calendar span{
+
+    width:55px;
+
+    height:55px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    font-size:20px;
+
+    transition:.35s;
+
+}
+
+.calendar span:hover{
+
+    transform:scale(1.1);
+
+}
+
+.done{
+
+    background:#2ecc71 !important;
+
+    color:#fff;
+
+    box-shadow:0 0 20px rgba(46,204,113,.5);
+
+}
+
+.active-day{
+
+    background:linear-gradient(135deg,var(--primary),var(--accent)) !important;
+
+    color:#fff;
+
+    animation:pulseDay 2s infinite;
+
+}
+
+/* ========================= */
+/* Reminder Settings */
+/* ========================= */
+
+.settings{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+    gap:22px;
+
+}
+
+.setting{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:25px;
+
+    background:var(--glass);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    backdrop-filter:blur(15px);
+
+    transition:.35s;
+
+}
+
+.setting:hover{
+
+    transform:translateY(-5px);
+
+    border-color:rgba(44,116,179,.45);
+
+}
+
+.setting span{
+
+    font-size:17px;
+
+    font-weight:500;
+
+}
+
+/* ========================= */
+/* Toggle Switch */
+/* ========================= */
+
+.switch{
+
+    position:relative;
+
+    display:inline-block;
+
+    width:62px;
+
+    height:34px;
+
+}
+
+.switch input{
+
+    opacity:0;
+
+    width:0;
+
+    height:0;
+
+}
+
+.slider{
+
+    position:absolute;
+
+    cursor:pointer;
+
+    inset:0;
+
+    border-radius:34px;
+
+    background:#555;
+
+    transition:.4s;
+
+}
+
+.slider::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:26px;
+
+    height:26px;
+
+    left:4px;
+
+    bottom:4px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    transition:.4s;
+
+}
+
+.switch input:checked + .slider{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
+
+    box-shadow:0 0 20px rgba(44,116,179,.55);
+
+}
+
+.switch input:checked + .slider::before{
+
+    transform:translateX(28px);
+
+}
+
+/* ========================= */
+/* Animations */
+/* ========================= */
+
+@keyframes ring{
+
+    0%{
+
+        transform:rotate(0deg);
+
+    }
+
+    5%{
+
+        transform:rotate(10deg);
+
+    }
+
+    10%{
+
+        transform:rotate(-10deg);
+
+    }
+
+    15%{
+
+        transform:rotate(8deg);
+
+    }
+
+    20%{
+
+        transform:rotate(-8deg);
+
+    }
+
+    25%{
+
+        transform:rotate(0deg);
+
+    }
+
+    100%{
+
+        transform:rotate(0deg);
+
+    }
+
+}
+
+@keyframes pulseDay{
+
+    0%{
+
+        box-shadow:0 0 0 rgba(44,116,179,0);
+
+    }
+
+    50%{
+
+        box-shadow:0 0 25px rgba(44,116,179,.7);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 rgba(44,116,179,0);
+
+    }
+
+}
+/* ==========================================
+   BuildForge AI - Smart Posting Reminder
+   File: smartposting.css
+   Part 4 - Analytics, Floating AI & Responsive
+==========================================*/
+
+/* ========================= */
+/* Analytics Section */
+/* ========================= */
+
+.analytics{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+    margin-bottom:60px;
+
+}
+
+.analytics-card{
+
+    position:relative;
+    overflow:hidden;
+
+    background:var(--glass);
+
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:22px;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    transition:.4s;
+
+    box-shadow:var(--shadow);
+
+}
+
+.analytics-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:rgba(44,116,179,.18);
+
+    top:-80px;
+    right:-80px;
+
+    filter:blur(45px);
+
+}
+
+.analytics-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:rgba(44,116,179,.55);
+
+    box-shadow:0 25px 45px rgba(0,0,0,.45);
+
+}
+
+.analytics-card i{
+
+    font-size:45px;
+
+    margin-bottom:20px;
+
+    color:var(--accent);
+
+    text-shadow:0 0 20px rgba(44,116,179,.8);
+
+}
+
+.analytics-card h1{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+    color:#ffffff;
+
+}
+
+.analytics-card p{
+
+    color:#cddcf8;
+
+    font-size:16px;
+
+}
+
+/* ========================= */
+/* Floating AI Assistant */
+/* ========================= */
+
+.floating-ai{
+
+    position:fixed;
+
+    right:30px;
+
+    bottom:30px;
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    z-index:999;
+
+    box-shadow:0 12px 35px rgba(44,116,179,.5);
+
+    transition:.35s;
+
+    animation:floatAI 3s ease-in-out infinite;
+
+}
+
+.floating-ai:hover{
+
+    transform:scale(1.1);
+
+    box-shadow:0 18px 45px rgba(44,116,179,.7);
+
+}
+
+.floating-ai i{
+
+    font-size:28px;
+
+}
+
+.floating-ai span{
+
+    display:none;
+
+}
+
+/* Expand on Hover */
+
+.floating-ai:hover{
+
+    width:180px;
+
+    border-radius:40px;
+
+}
+
+.floating-ai:hover span{
+
+    display:inline;
+
+    margin-top:6px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+/* ========================= */
+/* Fade Animation */
+/* ========================= */
+
+.header,
+.hero-card,
+.timeline-item,
+.card,
+.recommend-box,
+.notification,
+.calendar,
+.setting,
+.analytics-card{
+
+    animation:fadeInUp .8s ease both;
+
+}
+
+@keyframes fadeInUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes floatAI{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-12px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+/* ========================= */
+/* Glass Hover Effect */
+/* ========================= */
+
+.hero-card:hover,
+.notification:hover,
+.calendar:hover{
+
+    border-color:rgba(44,116,179,.5);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.45);
+
+}
+
+/* ========================= */
+/* Selection Color */
+/* ========================= */
+
+::selection{
+
+    background:var(--accent);
+
+    color:#fff;
+
+}
+
+/* ========================= */
+/* Responsive */
+/* ========================= */
+
+@media(max-width:1100px){
+
+.header{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.hero-card{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.hero-right{
+
+    margin-top:20px;
+
+}
+
+.notification{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.notify-text{
+
+    text-align:center;
+
+}
+
+.post-btn{
+
+    width:100%;
+
+}
+
+}
+
+/* Tablet */
+
+@media(max-width:768px){
+
+.header{
+
+    padding:25px;
+
+}
+
+.header-text h1{
+
+    font-size:34px;
+
+}
+
+.hero-left h2{
+
+    font-size:28px;
+
+}
+
+.progress-circle{
+
+    width:180px;
+
+    height:180px;
+
+}
+
+.circle{
+
+    width:140px;
+
+    height:140px;
+
+}
+
+.circle h2{
+
+    font-size:34px;
+
+}
+
+.timeline{
+
+    padding-left:50px;
+
+}
+
+.timeline::before{
+
+    left:20px;
+
+}
+
+.timeline-item::before{
+
+    left:-43px;
+
+}
+
+.time{
+
+    min-width:90px;
+
+    font-size:13px;
+
+}
+
+.content h3{
+
+    font-size:19px;
+
+}
+
+.section-title h2{
+
+    font-size:24px;
+
+}
+
+.calendar{
+
+    gap:10px;
+
+    padding:20px;
+
+}
+
+.calendar span{
+
+    width:42px;
+
+    height:42px;
+
+    font-size:16px;
+
+}
+
+.floating-ai{
+
+    width:60px;
+
+    height:60px;
+
+}
+
+}
+
+/* Mobile */
+
+@media(max-width:576px){
+
+.header{
+
+    width:95%;
+
+}
+
+.dashboard{
+
+    width:95%;
+
+}
+
+.hero-card{
+
+    padding:25px;
+
+}
+
+.logo{
+
+    flex-direction:column;
+
+}
+
+.logo h2{
+
+    font-size:24px;
+
+}
+
+.header-text h1{
+
+    font-size:28px;
+
+}
+
+.header-text p{
+
+    font-size:15px;
+
+}
+
+.primary-btn{
+
+    width:100%;
+
+}
+
+.timeline{
+
+    padding-left:40px;
+
+}
+
+.timeline::before{
+
+    left:15px;
+
+}
+
+.timeline-item{
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.timeline-item::before{
+
+    left:-32px;
+
+}
+
+.time{
+
+    margin-bottom:5px;
+
+}
+
+.notification{
+
+    padding:20px;
+
+}
+
+.cards,
+.recommendation,
+.analytics,
+.settings{
+
+    grid-template-columns:1fr;
+
+}
+
+.calendar{
+
+    grid-template-columns:repeat(7,1fr);
+
+    overflow-x:auto;
+
+}
+
+.floating-ai{
+
+    right:20px;
+
+    bottom:20px;
+
+}
+
+}
+
+/* ========================= */
+/* End of smartposting.css */
+/* ========================= */
