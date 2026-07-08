@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrandForge AI - Profile Analysis Agent</title>
+    <link rel="icon" type="image/png" href="139550-removebg-preview.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0A2647;
+            --secondary-color: #144272;
+            --primary-btn: #205295;
+            --accent-color: #2C74B3;
+            --text-color: #FFFFFF;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Glowing Background */
+        .glow-1 {
+            position: fixed;
+            top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, var(--accent-color) 0%, transparent 60%);
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: float 10s infinite alternate;
+            z-index: -1;
+        }
+
+        .glow-2 {
+            position: fixed;
+            bottom: -10%; right: -10%;
+            width: 60vw; height: 60vw;
+            background: radial-gradient(circle, var(--secondary-color) 0%, transparent 60%);
+            filter: blur(120px);
+            opacity: 0.5;
+            animation: float 15s infinite alternate-reverse;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            margin: 0.75rem 1.5rem;
+            border-radius: calc(var(--radius) - 8px);
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: linear-gradient(90deg, #ffffff 0%, #7dd3fc 35%, #60a5fa 70%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo img { 
+            width:40px;
+            height:auto;
+            color: #ffffff;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+        .avatar {
+            width: 34px;
+            height: 34px;
+            background: var(--primary-btn);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1120px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            text-align: center;
+            width: min(100%, 1120px);
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, var(--accent-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+            overflow-wrap: normal;
+            word-break: keep-all;
+        }
+
+        .analysis-card {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+            transition: all 0.5s ease;
+            width: 100%;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .progress-container {
+            position: relative;
+            width: min(280px, 45vw);
+            height: min(280px, 45vw);
+            margin-bottom: 2rem;
+            max-width: 280px;
+            max-height: 280px;
+        }
+
+        svg.circular-progress {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .progress-inner i {
+            font-size: clamp(1.6rem, 3vw, 2rem);
+        }
+
+        .percentage {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-text {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 3rem;
+        }
+
+        /* AI Analysis Card */
+        .analysis-card {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+            transition: all 0.5s ease;
+        }
+
+        .progress-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin-bottom: 2rem;
+        }
+
+        svg.circular-progress {
+            transform: rotate(-90deg);
+            width: 160px;
+            height: 160px;
+        }
+
+        .bg-circle {
+            fill: none;
+            stroke: var(--secondary-color);
+            stroke-width: 8;
+        }
+
+        .progress-circle {
+            fill: none;
+            stroke: var(--accent-color);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        .progress-inner {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-inner i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        .percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; text-shadow: 0 0 15px var(--accent-color); }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .status-message {
+            font-size: 1.2rem;
+            font-weight: 500;
+            height: 30px;
+        }
+
+        /* Live Preview Cards */
+        .live-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .preview-card {
+            padding: 1.5rem;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            min-height: 120px;
+        }
+
+        .preview-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .preview-card i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            background: var(--secondary-color);
+            padding: 1rem;
+            border-radius: 12px;
+            min-width: 56px;
+            min-height: 56px;
+            display: grid;
+            place-items: center;
+        }
+
+        .preview-content h4 {
+            color: #aaa;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .preview-content p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Final Result Section */
+        .final-results {
+            display: none;
+            animation: fadeIn 1s ease forwards;
+            text-align: left;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-card {
+            text-align: center;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-btn));
+        }
+
+        .score-card h2 { font-size: 1.2rem; font-weight: 400; }
+        .score-card .score { font-size: clamp(3rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-box {
+            padding: 1.5rem;
+            min-height: 220px;
+        }
+
+        .result-box { padding: 1.5rem; }
+        .result-box h3 { margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem; }
+        
+        .progress-bar-container { margin-bottom: 1rem; }
+        .progress-bar-container label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .bar-bg { width: 100%; height: 8px; background: rgba(0,0,0,0.3); border-radius: 4px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--accent-color); border-radius: 4px; }
+
+        .pill-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .pill { background: var(--secondary-color); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; }
+        
+        ul.bullet-list { list-style: none; padding-left: 0; }
+        ul.bullet-list li { margin-bottom: 0.8rem; position: relative; padding-left: 1.5rem; font-size: 0.95rem; }
+        ul.bullet-list li::before { content: '✨'; position: absolute; left: 0; top: 0; font-size: 0.9rem; }
+
+        /* Buttons */
+        .actions {
+            display: none;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        button {
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-btn);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(32, 82, 149, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 116, 179, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-bg);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.75rem;
+                padding: 0.85rem 1rem;
+                margin: 0.85rem 1rem;
+            }
+
+            .nav-icons {
+                width: auto;
+                justify-content: flex-end;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .live-preview-grid {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1rem;
+                margin: 1rem;
+            }
+
+            .container {
+                margin: 1rem auto;
+                padding: 0 1rem;
+            }
+
+            .header h1 { font-size: 2rem; }
+            .header p { font-size: 1rem; }
+            .welcome-text { margin-bottom: 2rem; }
+
+            .analysis-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .progress-container {
+                width: min(240px, 50vw);
+                height: min(240px, 50vw);
+            }
+
+            .live-preview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-card {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .preview-card i {
+                min-width: 48px;
+                min-height: 48px;
+                padding: 0.85rem;
+            }
+
+            .score-card, .result-box {
+                padding: 1.5rem;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+
+            .actions {
+                flex-direction: column;
+                display: flex;
+                gap: 1rem;
+            }
+
+            button {
+                width: 100%;
+                padding: 1rem 1.25rem;
+            }
+
+            .pill-list {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .nav-icons {
+                gap: 1rem;
+            }
+
+            .progress-container {
+                width: min(210px, 65vw);
+                height: min(210px, 65vw);
+            }
+
+            .preview-card {
+                gap: 0.75rem;
+            }
+
+            .preview-content h4 { font-size: 0.85rem; }
+            .preview-content p { font-size: 1rem; }
+
+            .result-box h3 { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <nav class="glass">
+        <div class="logo">
+            <img src="139550-removebg-preview.png" alt="image"> BrandForge AI
+        </div>
+        <div class="nav-icons">
+            <i class="fa-regular fa-bell"></i>
+            <i class="fa-solid fa-gear"></i>
+            <div class="avatar" id="nav-avatar">U</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Analyzing Your Personal Brand</h1>
+            <p>Our AI is building your personalized branding strategy.</p>
+            <div class="welcome-text" id="welcome-msg">Welcome back, User</div>
+        </div>
+
+        <div class="glass analysis-card" id="analysis-section">
+            <div class="progress-container">
+                <svg class="circular-progress">
+                    <circle class="bg-circle" cx="80" cy="80" r="70"></circle>
+                    <circle class="progress-circle" id="circle-stroke" cx="80" cy="80" r="70"></circle>
+                </svg>
+                <div class="progress-inner">
+                    <i class="fa-solid fa-brain"></i>
+                    <div class="percentage" id="percentage-text">0%</div>
+                </div>
+            </div>
+            <div class="status-message" id="status-msg">Initializing...</div>
+        </div>
+
+        <div class="live-preview-grid" id="preview-grid">
+            <div class="glass preview-card" id="card-1">
+                <i class="fa-solid fa-building"></i>
+                <div class="preview-content">
+                    <h4>Detected Industry</h4>
+                    <p id="val-industry">Analyzing...</p>
+                </div>
+            </div>
+            <div class="glass preview-card" id="card-2">
+                <i class="fa-solid fa-bullseye"></i>
+                <div class="preview-content">
+                    <h4>Primary Niche</h4>
+                    <p id="val-niche">Analyzing...</p>
+                </div>
+            </div>
+            <div class="glass preview-card" id="card-3">
+                <i class="fa-solid fa-pen-nib"></i>
+                <div class="preview-content">
+                    <h4>Suggested Content Tone</h4>
+                    <p id="val-tone">Analyzing...</p>
+                </div>
+            </div>
+            <div class="glass preview-card" id="card-4">
+                <i class="fa-solid fa-hashtag"></i>
+                <div class="preview-content">
+                    <h4>Recommended Platforms</h4>
+                    <p id="val-platforms">Analyzing...</p>
+                </div>
+            </div>
+            <div class="glass preview-card" id="card-5">
+                <i class="fa-solid fa-users"></i>
+                <div class="preview-content">
+                    <h4>Audience Type</h4>
+                    <p id="val-audience">Analyzing...</p>
+                </div>
+            </div>
+            <div class="glass preview-card" id="card-6">
+                <i class="fa-solid fa-calendar-days"></i>
+                <div class="preview-content">
+                    <h4>Posting Frequency</h4>
+                    <p id="val-frequency">Analyzing...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="final-results" id="final-results">
+            <div class="glass score-card">
+                <h2>Overall Brand Score</h2>
+                <div class="score">87<span style="font-size: 2rem; color: #ccc;">/100</span></div>
+                <p>Top 15% in your industry</p>
+            </div>
+
+            <div class="results-grid">
+                <div class="glass result-box">
+                    <h3>AI Strategy Overview</h3>
+                    <div class="progress-bar-container">
+                        <label><span>Audience Match</span> <span>92%</span></label>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 92%;"></div></div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <label><span>Growth Potential</span> <span>85%</span></label>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
+                    </div>
+                    
+                    <h3 style="margin-top: 1.5rem;">Content Pillars</h3>
+                    <div class="pill-list">
+                        <span class="pill">Educational Insights</span>
+                        <span class="pill">Industry Trends</span>
+                        <span class="pill">Personal Journey</span>
+                        <span class="pill">Case Studies</span>
+                    </div>
+                </div>
+
+                <div class="glass result-box">
+                    <h3>Top AI Recommendations</h3>
+                    <ul class="bullet-list">
+                        <li>Leverage carousel posts for high-value insights.</li>
+                        <li>Engage with top creators in your niche daily.</li>
+                        <li>Include a clear call-to-action to your newsletter.</li>
+                        <li>Share a personal failure to build authenticity.</li>
+                        <li>Test short-form video on secondary platforms.</li>
+                    </ul>
+                </div>
+
+                <div class="glass result-box">
+                    <h3>Strengths</h3>
+                    <div class="pill-list" style="margin-bottom: 1rem;">
+                        <span class="pill" style="border-left: 3px solid #4CAF50;">Technical Expertise</span>
+                        <span class="pill" style="border-left: 3px solid #4CAF50;">Clear Niche</span>
+                    </div>
+                    <h3>Areas for Improvement</h3>
+                    <div class="pill-list">
+                        <span class="pill" style="border-left: 3px solid #f44336;">Visual Branding</span>
+                        <span class="pill" style="border-left: 3px solid #f44336;">Posting Consistency</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions" id="action-buttons">
+            <button class="btn-secondary">View Full Report</button>
+            <button class="btn-primary" onclick="continueToDashboard()">Continue to Dashboard</button>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. Mock LocalStorage setup (Simulating data from Onboarding Step 1 & 2)
+        // If data doesn't exist, we provide a fallback for demonstration.
+        const defaultData = {
+            name: "Alex",
+            profession: "Software Engineer",
+            industry: "Technology / SaaS",
+            niche: "AI & Machine Learning",
+            skills: "Python, React, System Design",
+            goals: "Build an audience of developers",
+            audience: "Tech enthusiasts and junior developers",
+            platforms: "Twitter (X), LinkedIn",
+            frequency: "4x per week"
+        };
+
+        const storedData = localStorage.getItem('brandForgeUser');
+        const userData = storedData ? JSON.parse(storedData) : defaultData;
+
+        const displayName = userData.name || defaultData.name;
+        const profession = userData.profession || defaultData.profession;
+        const industry = userData.industry || defaultData.industry;
+        const niche = userData.niche || `${profession} in ${industry}`;
+        const audience = userData.audience || defaultData.audience;
+        const platforms = userData.platforms || defaultData.platforms;
+        const frequency = userData.frequency || defaultData.frequency;
+        const goals = userData.goals || defaultData.goals;
+
+        // 2. Initial Setup
+        document.getElementById('nav-avatar').innerText = displayName.charAt(0).toUpperCase();
+        document.getElementById('welcome-msg').innerText = `Welcome back, ${displayName}`;
+        document.querySelector('.header p').innerText = `Our AI is building a personalized strategy for ${profession} in ${industry}.`;
+
+        // Analysis Messages Array
+        const messages = [
+            "Reading your profile...",
+            "Understanding your niche...",
+            "Identifying your audience...",
+            "Evaluating your skills...",
+            "Creating content pillars...",
+            "Calculating Brand Score...",
+            "Preparing recommendations...",
+            "Finalizing analysis..."
+        ];
+
+        // Derived Mock Values for Cards based on stored user data
+        const mockAnalysisResults = [
+            { id: "val-industry", value: industry },
+            { id: "val-niche", value: niche },
+            { id: "val-tone", value: "Authoritative yet approachable" },
+            { id: "val-platforms", value: platforms },
+            { id: "val-audience", value: audience },
+            { id: "val-frequency", value: frequency }
+        ];
+
+        // 3. Animation Logic
+        const totalDuration = 6000; // 6 seconds
+        const updateInterval = 60; // ms per frame
+        const totalFrames = totalDuration / updateInterval;
+        let currentFrame = 0;
+
+        const circleStroke = document.getElementById('circle-stroke');
+        const percentageText = document.getElementById('percentage-text');
+        const statusMsg = document.getElementById('status-msg');
+        
+        // SVG circle circumference is 2 * pi * r (r=70) = ~440
+        const circumference = 440;
+
+        const timer = setInterval(() => {
+            currentFrame++;
+            let progress = currentFrame / totalFrames;
+            let percent = Math.min(Math.floor(progress * 100), 100);
+
+            // Update Circle and Text
+            percentageText.innerText = `${percent}%`;
+            circleStroke.style.strokeDashoffset = circumference - (progress * circumference);
+
+            // Update Messages based on percentage
+            let messageIndex = Math.floor(progress * messages.length);
+            if (messageIndex >= messages.length) messageIndex = messages.length - 1;
+            statusMsg.innerText = messages[messageIndex];
+
+            // Reveal Live Preview Cards progressively
+            if (percent === 15) revealCard(1, mockAnalysisResults[0]);
+            if (percent === 30) revealCard(2, mockAnalysisResults[1]);
+            if (percent === 45) revealCard(3, mockAnalysisResults[2]);
+            if (percent === 60) revealCard(4, mockAnalysisResults[3]);
+            if (percent === 75) revealCard(5, mockAnalysisResults[4]);
+            if (percent === 90) revealCard(6, mockAnalysisResults[5]);
+
+            // Finish
+            if (currentFrame >= totalFrames) {
+                clearInterval(timer);
+                finishAnalysis();
+            }
+        }, updateInterval);
+
+        function revealCard(index, dataObj) {
+            const card = document.getElementById(`card-${index}`);
+            const textEl = document.getElementById(dataObj.id);
+            textEl.innerText = dataObj.value;
+            textEl.style.color = "var(--accent-color)";
+            card.classList.add('visible');
+        }
+
+        function finishAnalysis() {
+            // Hide the analysis spinner softly
+            const analysisSection = document.getElementById('analysis-section');
+            analysisSection.style.opacity = '0';
+            
+            setTimeout(() => {
+                analysisSection.style.display = 'none';
+                
+                // Show Final Results and Buttons
+                document.getElementById('final-results').style.display = 'block';
+                document.getElementById('action-buttons').style.display = 'flex';
+                
+                // Hide preview grid to save space for final results (optional, but looks cleaner)
+                document.getElementById('preview-grid').style.display = 'none';
+            }, 500);
+        }
+
+        // 4. Navigation
+        function continueToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

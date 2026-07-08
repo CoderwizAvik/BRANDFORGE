@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | BrandForge AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="139550-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Color Palette & Variables --- */
+        :root {
+            --bg-color: #0A2647;
+            --bg-secondary: #144272;
+            --accent-primary: #205295;
+            --highlight: #2C74B3;
+            --text-main: #FFFFFF;
+            --text-secondary: #B0C4DE;
+            --glass-bg: rgba(20, 66, 114, 0.35);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-glow: rgba(44, 116, 179, 0.5);
+            --border-radius: 20px;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Global Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            width: min(100%, 1280px);
+            margin: 0 auto;
+            padding-top: 90px;
+        }
+
+        section {
+            width: min(100%, 1200px);
+            margin: 0 auto;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- Background Floating Blobs --- */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-primary);
+            top: -10%;
+            left: -10%;
+        }
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--bg-secondary);
+            bottom: 20%;
+            right: -10%;
+            animation-delay: 2s;
+        }
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--highlight);
+            top: 50%;
+            left: 40%;
+            opacity: 0.5;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3 { font-weight: 600; }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-main);
+        }
+        .text-gradient {
+            background: linear-gradient(90deg, var(--text-main), var(--highlight));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 38, 71, 0.7);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff 0%, #7dd3fc 35%, #60a5fa 70%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo img{
+            width:40px;
+            height:auto;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links li a {
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--highlight);
+            transition: var(--transition);
+        }
+        .nav-links li a:hover::after,
+        .nav-links li a.active::after {
+            width: 100%;
+        }
+        .nav-links li a.active {
+            color: var(--highlight);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--text-main);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 10px 5% 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            min-height: calc(100vh - 90px);
+            width: min(100%, 1240px);
+            margin: 0 auto;
+        }
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+            max-width: 660px;
+        }
+        .hero-content h1 {
+            font-size: 70px;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            max-width: 100%;
+        }
+        .hero-content p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 560px;
+            width: 100%;
+            min-height: 320px;
+            margin-top: 1rem;
+        }
+        .hero-image svg {
+            width: min(100%, 500px);
+            height: auto;
+            filter: drop-shadow(0 0 20px var(--glass-glow));
+            animation: float 6s infinite ease-in-out alternate;
+            display: block;
+        }
+
+        /* --- Glassmorphism Cards Base --- */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--highlight);
+            box-shadow: 0 10px 30px var(--glass-glow);
+        }
+
+        /* --- Team Section --- */
+        .team-section { padding: 5rem 5%; }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            align-items: stretch;
+        }
+        .team-card {
+            text-align: center;
+        }
+        .team-img-placeholder {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 3px solid var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--highlight);
+            overflow: hidden;
+        }
+        .team-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .team-card h3 { font-size: 1.2rem; margin-bottom: 0.2rem; }
+        .team-card .designation {
+            color: var(--highlight);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .team-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Features Section --- */
+        .features-section { padding: 5rem 5% 8rem; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            align-items: stretch;
+        }
+        .feature-card { text-align: left; }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--highlight);
+            margin-bottom: 1.5rem;
+        }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 1rem; }
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: rgba(10, 38, 71, 0.9);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 5% 1.5rem;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .footer-logo { font-size: 1.8rem; font-weight: 700; color: var(--text-main);
+         background: linear-gradient(90deg, #ffffff 0%, #7dd3fc 35%, #60a5fa 70%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;}
+        .footer-logo img { color: var(--highlight);
+            width:40px;
+            height:auto;
+        }
+        .footer-tagline { color: var(--text-secondary); }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        .footer-links a { font-size: 0.9rem; color: var(--text-secondary); }
+        .footer-links a:hover { color: var(--highlight); }
+        .socials {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.5rem;
+        }
+        .socials a:hover { color: var(--highlight); transform: scale(1.1); }
+        .copyright {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid var(--glass-border);
+            padding-top: 1.5rem;
+        }
+
+        /* --- Animations (Scroll Reveal) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1120px) {
+            header {
+                padding: 1rem 4%;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+                min-height: auto;
+                padding: 130px 4% 60px;
+                gap: 3rem;
+            }
+
+            .hero-content {
+                max-width: 720px;
+                margin: 0 auto;
+            }
+
+            .hero-content h1 {
+                font-size: 2.6rem;
+            }
+
+            .hero-content p {
+                font-size: 1.05rem;
+                max-width: 680px;
+                margin: 0 auto;
+            }
+
+            .hero-image svg {
+                max-width: 420px;
+            }
+
+            .team-grid,
+            .features-grid {
+                grid-template-columns: repeat(2, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                padding: 120px 3.5% 50px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-image svg {
+                max-width: 360px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .team-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0.9rem 3%;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .hamburger { display: block; }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(20, 66, 114, 0.95);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem 0;
+                gap: 1.25rem;
+                clip-path: circle(0% at 100% 0);
+                transition: all 0.5s ease;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links.active {
+                clip-path: circle(150% at 100% 0);
+            }
+
+            .hero {
+                padding-top: 110px;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: clamp(1.9rem, 7vw, 2.2rem);
+                line-height: 1.2;
+            }
+
+            .hero-content p {
+                font-size: 0.98rem;
+            }
+
+            .hero-image svg {
+                max-width: 260px;
+            }
+
+            .hero-image {
+                width: 100%;
+            }
+
+            .team-card,
+            .feature-card {
+                padding: 1.6rem;
+            }
+
+            .team-img-placeholder {
+                width: 90px;
+                height: 90px;
+            }
+
+            .feature-icon {
+                font-size: 2rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.85rem;
+            }
+
+            footer {
+                padding: 2.5rem 3%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 0.95rem;
+            }
+
+            header {
+                padding: 0.85rem 2%;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero {
+                padding: 100px 2.5% 40px;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero-content p {
+                font-size: 0.95rem;
+            }
+
+            .hero-image svg {
+                max-width: 260px;
+            }
+
+            .team-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-img-placeholder {
+                width: 80px;
+                height: 80px;
+            }
+
+            .hero-image,
+            .team-section,
+            .features-section,
+            .footer-content {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .footer-links,
+            .socials {
+                justify-content: center;
+            }
+
+            .blob {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <header>
+        <a href="#" class="logo">
+            <img src="139550-removebg-preview.png" alt="image"> BrandForge AI
+        </a>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#" class="active">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content reveal">
+                <h1>Meet the Team Behind <span class="text-gradient">BrandForge AI</span></h1>
+                <p>We are passionate developers building an AI-powered platform that helps creators and professionals grow their personal brand through intelligent automation, AI-generated content, audience analytics, and smart scheduling.</p>
+            </div>
+            <div class="hero-image reveal">
+                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="250" cy="250" r="180" fill="none" stroke="rgba(44, 116, 179, 0.3)" stroke-width="2" stroke-dasharray="10 5"/>
+                    <circle cx="250" cy="250" r="120" fill="none" stroke="rgba(44, 116, 179, 0.5)" stroke-width="2"/>
+                    <circle cx="250" cy="250" r="50" fill="#2C74B3"/>
+                    <circle cx="120" cy="150" r="20" fill="#205295"/>
+                    <circle cx="380" cy="150" r="25" fill="#205295"/>
+                    <circle cx="150" cy="380" r="15" fill="#205295"/>
+                    <circle cx="350" cy="350" r="30" fill="#205295"/>
+                    <line x1="250" y1="250" x2="120" y2="150" stroke="#2C74B3" stroke-width="3"/>
+                    <line x1="250" y1="250" x2="380" y2="150" stroke="#2C74B3" stroke-width="3"/>
+                    <line x1="250" y1="250" x2="150" y2="380" stroke="#2C74B3" stroke-width="3"/>
+                    <line x1="250" y1="250" x2="350" y2="350" stroke="#2C74B3" stroke-width="3"/>
+                    <path d="M 235 240 L 265 240 L 250 265 Z" fill="#ffffff"/>
+                </svg>
+            </div>
+        </section>
+
+        <section class="team-section" id="team">
+            <h2 class="section-title reveal">Our Team</h2>
+            <div class="team-grid">
+                
+                <div class="team-card glass-card reveal">
+                    <div class="team-img-placeholder">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h3>Your Name</h3>
+                    <div class="designation">Frontend Developer</div>
+                    <p>Built responsive UI, onboarding screens, animations, and dashboard interfaces.</p>
+                </div>
+
+                <div class="team-card glass-card reveal">
+                    <div class="team-img-placeholder">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h3>Team Member</h3>
+                    <div class="designation">Backend Developer</div>
+                    <p>Developed APIs, authentication, databases, and automation workflows.</p>
+                </div>
+
+                <div class="team-card glass-card reveal">
+                    <div class="team-img-placeholder">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h3>Team Member</h3>
+                    <div class="designation">AI/ML Engineer</div>
+                    <p>Built AI agents for profile analysis, content generation, recommendation systems, and engagement prediction.</p>
+                </div>
+
+                <div class="team-card glass-card reveal">
+                    <div class="team-img-placeholder">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h3>Team Member</h3>
+                    <div class="designation">UI/UX Designer</div>
+                    <p>Designed user flows, wireframes, branding, and modern user experiences.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="features-section" id="features">
+            <h2 class="section-title reveal">Why BrandForge AI?</h2>
+            <div class="features-grid">
+                
+                <div class="feature-card glass-card reveal">
+                    <div class="feature-icon"><i class="fa-solid fa-robot"></i></div>
+                    <h3>AI-Powered Automation</h3>
+                    <p>Automate your brand presence with intelligent tools that learn your tone and style.</p>
+                </div>
+
+                <div class="feature-card glass-card reveal">
+                    <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>Audience Analytics</h3>
+                    <p>Deep dive into your audience's behavior with predictive engagement metrics.</p>
+                </div>
+
+                <div class="feature-card glass-card reveal">
+                    <div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>Smart Content Scheduling</h3>
+                    <p>Post at the perfect time. Our AI analyzes optimal windows for maximum reach.</p>
+                </div>
+
+                <div class="feature-card glass-card reveal">
+                    <div class="feature-icon"><i class="fa-solid fa-rocket"></i></div>
+                    <h3>Multi-Platform Branding</h3>
+                    <p>Unify your voice across LinkedIn, Twitter, and more from a single dashboard.</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content reveal">
+            <div class="footer-logo">
+                <img src="139550-removebg-preview.png" alt="image"> BrandForge AI
+            </div>
+            <p class="footer-tagline">Empowering creators through intelligent personal branding.</p>
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <div class="socials">
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="copyright reveal">
+            &copy; 2026 BrandForge AI. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const icon = hamburger.querySelector('i');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            if(navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Intersection Observer for Scroll Animations (Fade-in / Slide-up)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('active');
+                    // Stop observing once animated
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            scrollObserver.observe(el);
+        });
+
+        // Trigger hero animations immediately on load
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.hero .reveal').forEach(el => {
+                el.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
