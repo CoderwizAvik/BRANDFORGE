@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login - BrandForge AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="main-content">
+
+
+<div class="card">
+
+
+<h1>
+🔐 BrandForge AI Login
+</h1>
+
+
+<br>
+
+
+<input 
+type="text" 
+id="username"
+placeholder="Username"
+>
+
+
+
+<br><br>
+
+
+<input 
+type="password"
+id="password"
+placeholder="Password"
+>
+
+
+
+<br><br>
+
+
+<button onclick="login()">
+Login
+</button>
+
+
+
+<p id="message"></p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+
+
+function login(){
+
+
+let user =
+document.getElementById("username").value;
+
+
+let pass =
+document.getElementById("password").value;
+
+
+
+if(user=="admin" && pass=="1234"){
+
+
+document.getElementById("message").innerHTML =
+"Login Successful";
+
+
+window.location.href="/";
+
+
+}
+
+
+else{
+
+
+document.getElementById("message").innerHTML =
+"Invalid Username or Password";
+
+
+}
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

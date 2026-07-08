@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Growth - BrandForge AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="main-content">
+
+
+<header>
+
+<h1>📈 Audience Growth Analysis</h1>
+
+</header>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>Follower Growth</h2>
+
+
+<p id="growthData">
+Loading...
+</p>
+
+
+</div>
+
+
+
+<div class="card">
+
+<h2>AI Suggestion</h2>
+
+
+<p>
+
+Keep creating educational content.<br>
+Use reels, hashtags and consistent posting.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+<script>
+
+
+async function loadGrowth(){
+
+
+const response = await fetch("/api/company-growth");
+
+
+const data = await response.json();
+
+
+
+document.getElementById("growthData").innerHTML =
+
+`
+Previous Followers : ${data.previous_followers}
+
+<br><br>
+
+Current Followers : ${data.current_followers}
+
+<br><br>
+
+Growth : ${data.growth}
+
+<br><br>
+
+Status : ${data.status}
+
+`;
+
+}
+
+
+loadGrowth();
+
+
+</script>
+
+
+
+</body>
+
+</html>

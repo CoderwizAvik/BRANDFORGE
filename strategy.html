@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Strategy - BrandForge AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="main-content">
+
+
+<header>
+
+<h1>🤖 AI Marketing Strategy</h1>
+
+</header>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>Strategy Overview</h2>
+
+<p id="strategyData">
+Loading...
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>Next Action</h2>
+
+<p>
+
+Follow AI recommendations and publish
+consistent educational content.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+
+
+async function loadStrategy(){
+
+
+const response = await fetch("/dashboard");
+
+
+const data = await response.json();
+
+
+
+document.getElementById("strategyData").innerHTML =
+
+
+`
+
+Strategy :
+${data.strategy.strategy}
+
+<br><br>
+
+
+Platform :
+${data.strategy.best_platform}
+
+<br><br>
+
+
+Content :
+${data.strategy.best_content}
+
+<br><br>
+
+
+Best Time :
+${data.strategy.best_time}
+
+<br><br>
+
+
+Frequency :
+${data.strategy.posting_frequency}
+
+<br><br>
+
+
+Next Action :
+${data.strategy.next_action}
+
+`;
+
+}
+
+
+loadStrategy();
+
+
+</script>
+
+
+
+</body>
+
+</html>

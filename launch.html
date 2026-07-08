@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Product Launch - BrandForge AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="main-content">
+
+
+<header>
+
+<h1>🚀 Product Launch Analytics</h1>
+
+</header>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>Launch Information</h2>
+
+
+<p id="launchData">
+Loading...
+</p>
+
+
+</div>
+
+
+
+<div class="card">
+
+<h2>AI Insight</h2>
+
+
+<p>
+
+Monitor downloads, revenue and user response
+to improve future launches.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+
+
+async function loadLaunch(){
+
+
+const response = await fetch("/api/launch");
+
+
+const data = await response.json();
+
+
+
+document.getElementById("launchData").innerHTML =
+
+`
+
+Product Name :
+
+${data.product_name}
+
+<br><br>
+
+
+Downloads :
+
+${data.downloads}
+
+<br><br>
+
+
+Revenue :
+
+${data.revenue}
+
+`;
+
+}
+
+
+loadLaunch();
+
+
+</script>
+
+
+
+</body>
+
+</html>

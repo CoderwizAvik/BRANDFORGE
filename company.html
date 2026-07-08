@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Company - BrandForge AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="main-content">
+
+
+<header>
+<h1>🏢 Company Information</h1>
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2 id="name">BrandForge AI</h2>
+
+<p>
+
+Founded:
+<span id="founded">Loading...</span>
+
+<br><br>
+
+Employees:
+<span id="employees">Loading...</span>
+
+<br><br>
+
+Followers:
+<span id="followers">Loading...</span>
+
+<br><br>
+
+Total Posts:
+<span id="posts">Loading...</span>
+
+<br><br>
+
+Engagement:
+<span id="engagement">Loading...</span>
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+async function loadCompany(){
+
+
+const response = await fetch("/api/company");
+
+const data = await response.json();
+
+
+
+document.getElementById("name").innerHTML =
+data.company_name;
+
+
+document.getElementById("founded").innerHTML =
+data.founded;
+
+
+document.getElementById("employees").innerHTML =
+data.employees;
+
+
+document.getElementById("followers").innerHTML =
+data.followers;
+
+
+document.getElementById("posts").innerHTML =
+data.total_posts;
+
+
+document.getElementById("engagement").innerHTML =
+data.engagement_rate;
+
+
+
+}
+
+
+loadCompany();
+
+
+</script>
+
+
+</body>
+
+</html>

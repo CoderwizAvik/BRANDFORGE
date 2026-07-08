@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Social Media - BrandForge AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="main-content">
+
+
+<header>
+
+<h1>📱 Social Media Analytics</h1>
+
+</header>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>Social Performance</h2>
+
+<p id="socialData">
+Loading...
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>AI Recommendation</h2>
+
+<p>
+
+Create more educational posts,
+reels and carousel content to increase engagement.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+
+
+async function loadSocial(){
+
+
+const response = await fetch("/api/social");
+
+
+const data = await response.json();
+
+
+
+document.getElementById("socialData").innerHTML =
+
+`
+
+Likes : ${data.likes}
+
+<br><br>
+
+Comments : ${data.comments}
+
+<br><br>
+
+Shares : ${data.shares}
+
+<br><br>
+
+Engagement Rate : ${data.engagement_rate}
+
+`;
+
+}
+
+
+loadSocial();
+
+
+</script>
+
+
+
+</body>
+
+</html>

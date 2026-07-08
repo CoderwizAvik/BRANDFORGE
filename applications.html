@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Applications - BrandForge AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="main-content">
+
+
+<header>
+
+<h1>📋 Application Analytics</h1>
+
+</header>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>Application Status</h2>
+
+
+<p id="applicationData">
+Loading...
+</p>
+
+
+</div>
+
+
+
+<div class="card">
+
+<h2>AI Recommendation</h2>
+
+
+<p>
+
+Analyze approved and pending applications
+to improve business decisions.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+
+
+async function loadApplications(){
+
+
+const response = await fetch("/api/applications");
+
+
+const data = await response.json();
+
+
+
+document.getElementById("applicationData").innerHTML =
+
+
+`
+
+Total Applications :
+
+${data.total}
+
+<br><br>
+
+
+Approved :
+
+${data.approved}
+
+<br><br>
+
+
+Pending :
+
+${data.pending}
+
+<br><br>
+
+
+Rejected :
+
+${data.rejected}
+
+`;
+
+}
+
+
+loadApplications();
+
+
+</script>
+
+
+
+</body>
+
+</html>
