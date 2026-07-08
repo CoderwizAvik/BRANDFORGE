@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrandForge AI - Platform Capabilities</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Color Palette Setup */
+        :root {
+            --primary-bg: #0A2647;
+            --secondary-bg: #144272;
+            --cards-btns: #205295;
+            --accent-hover: #2C74B3;
+            --text-light: #ffffff;
+            --text-muted: #b0c4de;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+        }
+
+        /* Animated Background Effects */
+        .bg-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            animation: float 10s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            width: 400px;
+            height: 400px;
+            background-color: var(--secondary-bg);
+            top: -100px;
+            left: -100px;
+        }
+
+        .glow-2 {
+            width: 500px;
+            height: 500px;
+            background-color: var(--cards-btns);
+            bottom: -150px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff, var(--accent-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* Responsive Grid */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            z-index: 1;
+        }
+
+        /* Glassmorphism Card Link */
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card {
+            background: rgba(32, 82, 149, 0.25); /* #205295 with transparency */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(44, 116, 179, 0.3); /* Accent border */
+            border-radius: 20px;
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover Animation & Neon Glow */
+        .card-link:hover .card {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-hover);
+            box-shadow: 0 0 25px rgba(44, 116, 179, 0.6), inset 0 0 15px rgba(44, 116, 179, 0.2);
+            background: rgba(32, 82, 149, 0.4);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--accent-hover);
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .card-link:hover .card-icon {
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--accent-hover);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .card-action {
+            display: inline-flex;
+            align-items: center;
+            font-weight: 600;
+            color: var(--accent-hover);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover .card-action {
+            color: #ffffff;
+            text-shadow: 0 0 5px var(--accent-hover);
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { gap: 1.5rem; padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <header>
+        <h1>Platform Capabilities</h1>
+        <p class="subtitle">Choose a feature to continue.</p>
+    </header>
+
+    <div class="container">
+        
+        <a href="ai content.html" class="card-link">
+            <div class="card">
+                <i class="fa-solid fa-wand-magic-sparkles card-icon"></i>
+                <h2 class="card-title">AI Content Generation</h2>
+                <p class="card-desc">Instantly craft high-quality posts tailored to your brand voice.</p>
+                <div class="card-action">Open &rarr;</div>
+            </div>
+        </a>
+
+        <a href="socials.html" class="card-link">
+            <div class="card">
+                <i class="fa-solid fa-share-nodes card-icon"></i>
+                <h2 class="card-title">Social Integrations</h2>
+                <p class="card-desc">Seamlessly connect and manage LinkedIn, X, and Instagram.</p>
+                <div class="card-action">Open &rarr;</div>
+            </div>
+        </a>
+
+        <a href="calender.html" class="card-link">
+            <div class="card">
+                <i class="fa-regular fa-calendar-days card-icon"></i>
+                <h2 class="card-title">Calendar Automation</h2>
+                <p class="card-desc">Visualize and automate your entire monthly content strategy.</p>
+                <div class="card-action">Open &rarr;</div>
+            </div>
+        </a>
+
+        <a href="smartposting.html" class="card-link">
+            <div class="card">
+                <i class="fa-solid fa-bell card-icon"></i>
+                <h2 class="card-title">Smart Posting Reminders</h2>
+                <p class="card-desc">Get intelligent alerts to post when your audience is most active.</p>
+                <div class="card-action">Open &rarr;</div>
+            </div>
+        </a>
+
+        <a href="audienceanalytics.html" class="card-link">
+            <div class="card">
+                <i class="fa-solid fa-chart-pie card-icon"></i>
+                <h2 class="card-title">Audience Analytics</h2>
+                <p class="card-desc">Track engagement metrics and dive deep into audience behavior.</p>
+                <div class="card-action">Open &rarr;</div>
+            </div>
+        </a>
+
+        <a href="automatedscheduling.html" class="card-link">
+            <div class="card">
+                <i class="fa-solid fa-clock card-icon"></i>
+                <h2 class="card-title">Automated Scheduling</h2>
+                <p class="card-desc">Put your cross-platform content pipeline on autopilot.</p>
+                <div class="card-action">Open &rarr;</div>
+            </div>
+        </a>
+
+    </div>
+
+</body>
+</html>

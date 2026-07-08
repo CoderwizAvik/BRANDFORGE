@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildForge AI - Social Media Integration</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========================================= CSS Variables & Base Reset ========================================= */
+        :root {
+            --primary-bg: #0A2647;
+            --secondary-bg: #144272;
+            --primary-btn: #205295;
+            --accent: #2C74B3;
+            --text-light: #ffffff;
+            --text-muted: #9ca3af;
+            --font-sans: 'Inter', sans-serif;
+            --font-heading: 'Poppins', sans-serif;
+            --glass-bg: rgba(20, 66, 114, 0.3);
+            --glass-border: rgba(44, 116, 179, 0.2);
+            --glass-hover-border: rgba(44, 116, 179, 0.8);
+            --transition-smooth: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .font-heading {
+            font-family: var(--font-heading);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ========================================= Layout & Typography Utilities ========================================= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .text-accent {
+            color: var(--accent);
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .mb-1 {
+            margin-bottom: 4px;
+        }
+
+        .mb-2 {
+            margin-bottom: 8px;
+        }
+
+        .mb-4 {
+            margin-bottom: 16px;
+        }
+
+        .mb-8 {
+            margin-bottom: 32px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(44, 116, 179, 0.6);
+        }
+
+        /* ========================================= Glassmorphism & Cards ========================================= */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            transition: var(--transition-smooth);
+        }
+
+        .glass:hover {
+            border-color: var(--glass-hover-border);
+            box-shadow: 0 10px 30px rgba(44, 116, 179, 0.25), inset 0 0 15px rgba(44, 116, 179, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .glass-panel {
+            background: rgba(10, 38, 71, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(44, 116, 179, 0.15);
+            border-radius: 25px;
+            padding: 40px;
+        }
+
+        /* ========================================= Buttons ========================================= */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-btn);
+            border: 1px solid var(--accent);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(32, 82, 149, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(44, 116, 179, 0.4) 0%, transparent 60%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .btn-primary:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 25px var(--accent);
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--text-light);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-btn);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .btn-glass {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+        }
+
+        .btn-glass:hover {
+            background: var(--secondary-bg);
+        }
+        .ai{
+            justify-content: space-between;
+        }
+
+        /* ========================================= Animations ========================================= */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(2deg);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-delayed {
+            animation: float 7s ease-in-out infinite 2s;
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(44, 116, 179, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(44, 116, 179, 0.9);
+            }
+        }
+
+        .status-pulse {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse-glow 2s infinite;
+            display: inline-block;
+        }
+
+        @keyframes dataFlow {
+            0% {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+        }
+
+        .flow-arrow {
+            animation: dataFlow 2s infinite;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            background-image: radial-gradient(circle at 15% 50%, rgba(32, 82, 149, 0.15) 0%, transparent 25%), radial-gradient(circle at 85% 30%, rgba(44, 116, 179, 0.15) 0%, transparent 25%);
+        }
+
+        /* ========================================= Specific Sections CSS ========================================= */
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            background: rgba(20, 66, 114, 0.3);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav-logo .icon-box {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-btn);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .nav-links {
+            display: none;
+            gap: 24px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        @media(min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 120px;
+            text-align: center;
+        }
+
+        .hero-blobs {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 250px;
+            height: 250px;
+            background: var(--primary-btn);
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+        }
+
+        .blob-2 {
+            position: absolute;
+            bottom: 25%;
+            right: 25%;
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #d1d5db;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media(min-width: 768px) {
+            .hero h1 {
+                font-size: 64px;
+            }
+
+            .hero p {
+                font-size: 20px;
+            }
+
+            .hero-actions {
+                flex-direction: row;
+            }
+        }
+
+        /* Platforms Grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media(min-width: 768px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(min-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .platform-card {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .platform-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--secondary-bg);
+            padding-bottom: 16px;
+        }
+
+        .platform-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .platform-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            background: var(--primary-bg);
+            padding: 4px 12px;
+            border-radius: 50px;
+            border: 1px solid var(--secondary-bg);
+        }
+
+        .platform-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 8px 0;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .platform-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+            padding-top: 8px;
+        }
+
+        .btn-sync {
+            flex: 1;
+            background: var(--secondary-bg);
+            border: 1px solid var(--primary-btn);
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+            color: #fff;
+        }
+
+        .btn-sync:hover {
+            background: var(--primary-btn);
+        }
+
+        .btn-unlink {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(127, 29, 29, 0.3);
+            border: 1px solid rgba(127, 29, 29, 0.5);
+            color: #f87171;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .btn-unlink:hover {
+            background: rgba(127, 29, 29, 0.6);
+        }
+
+        /* Dashboard */
+        .dash-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid var(--secondary-bg);
+            padding-bottom: 24px;
+            margin-bottom: 40px;
+        }
+
+        .dash-header-left {
+            width: 100%;
+            text-align: left;
+        }
+
+        .dash-header-right {
+            margin-top: 16px;
+            text-align: right;
+        }
+
+        @media(min-width: 768px) {
+            .dash-header {
+                flex-direction: row;
+                align-items: flex-end;
+            }
+
+            .dash-header-right {
+                margin-top: 0;
+            }
+        }
+
+        .dash-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        @media(min-width: 768px) {
+            .dash-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-box {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-box i {
+            font-size: 24px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .stat-box .num {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .dash-insights {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media(min-width: 768px) {
+            .dash-insights {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        /* Multi-Platform Sync */
+        .sync-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .sync-node {
+            padding: 16px 32px;
+            z-index: 10;
+            border-color: var(--accent);
+        }
+
+        .sync-engine {
+            background: var(--primary-btn);
+            padding: 24px 48px;
+            border-color: var(--accent);
+            margin: 32px 0;
+        }
+
+        .sync-arrows {
+            display: flex;
+            gap: 48px;
+            margin-bottom: 32px;
+        }
+
+        @media(min-width: 768px) {
+            .sync-arrows {
+                gap: 96px;
+            }
+        }
+
+        .sync-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            z-index: 10;
+        }
+
+        .sync-icon-box {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* Split Section (Connect & Permissions) */
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        @media(min-width: 768px) {
+            .split-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .connect-console {
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .console-log {
+            width: 100%;
+            text-align: left;
+            font-family: monospace;
+            font-size: 14px;
+            background: var(--primary-bg);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--secondary-bg);
+            height: 250px;
+            overflow-y: auto;
+        }
+
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--secondary-bg);
+            margin-bottom: 16px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--secondary-bg);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(16px);
+        }
+
+        /* Recommendations */
+        .rec-card {
+            position: relative;
+            overflow: hidden;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rec-match {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary-btn);
+            font-size: 12px;
+            padding: 4px 12px;
+            border-bottom-left-radius: 12px;
+            font-weight: bold;
+        }
+
+        .btn-small {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+            margin-top: auto;
+        }
+
+        .btn-small:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* Editor Preview */
+        .editor-split {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        @media(min-width: 1024px) {
+            .editor-split {
+                flex-direction: row;
+            }
+        }
+
+        .editor-pane {
+            flex: 1;
+            padding: 24px;
+        }
+
+        .editor-label {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .editor-textarea {
+            width: 100%;
+            height: 160px;
+            background: var(--primary-bg);
+            border: 1px solid var(--secondary-bg);
+            border-radius: 12px;
+            padding: 16px;
+            color: #fff;
+            font-size: 14px;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .editor-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--secondary-bg);
+            padding-bottom: 8px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            background: transparent;
+            color: var(--text-muted);
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+            background: var(--secondary-bg);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-btn);
+            color: #fff;
+        }
+
+        .preview-content {
+            display: none;
+            padding: 16px;
+            border-radius: 8px;
+            flex: 1;
+        }
+
+        .preview-content.active {
+            display: block;
+        }
+
+        .preview-linkedin,
+        .preview-insta {
+            background: #fff;
+            color: #000;
+        }
+
+        .preview-twitter {
+            background: #000;
+            color: #fff;
+            border: 1px solid #333;
+        }
+
+        /* Timeline & Activity */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 8px;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary-bg);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -40px;
+            width: 16px;
+            height: 16px;
+            background: var(--secondary-bg);
+            border: 2px solid var(--primary-btn);
+            border-radius: 50%;
+            top: 4px;
+        }
+
+        .timeline-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            border-color: var(--accent);
+        }
+
+        .activity-feed {
+            height: 400px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .activity-item {
+            background: rgba(10, 38, 71, 0.5);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--secondary-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        /* Security */
+        .security-section {
+            background: var(--primary-bg);
+            border-top: 1px solid var(--secondary-bg);
+            border-bottom: 1px solid var(--secondary-bg);
+            text-align: center;
+        }
+
+        .sec-icons-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        @media(min-width: 768px) {
+            .sec-icons-wrap {
+                gap: 64px;
+            }
+        }
+
+        .sec-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sec-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--secondary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--accent);
+            transition: 0.3s;
+        }
+
+        .sec-item:hover .sec-icon {
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-bg-glow {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 300px;
+            background: var(--accent);
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--secondary-bg);
+            background: var(--primary-bg);
+        }
+
+        /* Utilities */
+        .hidden {
+            display: none !important;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .gap-2 {
+            gap: 8px;
+        }
+
+        .gap-3 {
+            gap: 12px;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-bg);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles"></div>
+    <nav class="navbar">
+        <div class="nav-logo">
+            <div class="icon-box"></div>
+            <span class="font-heading">BuildForge <span class="text-accent">AI</span></span>
+        </div>
+        <div class="nav-links"> <a href="#">Dashboard</a> <a href="#" class="text-accent">Integrations</a> <a
+                href="#">Analytics</a> </div> <button class="btn btn-outline"
+            style="padding: 8px 20px; font-size: 14px;">Sign In</button>
+    </nav>
+    <section class="hero section reveal">
+        <div class="hero-blobs">
+            <div class="blob-1 floating"></div>
+            <div class="blob-2 floating-delayed"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="glass hero-badge"> <span class="status-pulse"></span> v2.0 Social Engine Live </div>
+                <h1 class="text-glow text-gradient">Connect All Your Social Platforms in One Place</h1>
+                <p>Manage, schedule, analyze, and grow your personal brand across every social media platform with
+                    AI-powered automation.</p>
+                <div class="hero-actions"> <button class="btn btn-primary" style="padding: 16px 32px;"><i
+                            class="fa-solid fa-link"></i> Connect Account</button> <button class="btn btn-glass"
+                        style="padding: 16px 32px;">Learn More</button> </div>
+            </div>
+        </div>
+    </section>
+    <section class="section container">
+        <h2 class="text-center font-bold mb-8 text-glow reveal" style="font-size: 32px;">Active Platforms</h2>
+        <div class="grid-3" id="platforms-container"> </div>
+    </section>
+    <section class="section container">
+        <div class="glass-panel reveal">
+            <div class="dash-header">
+                <div class="dash-header-left">
+                    <h2 class="font-bold text-gradient" style="font-size: 32px;">AI Connection Dashboard</h2>
+                    <p class="text-muted mt-2">Real-time telemetry of your multi-platform presence.</p>
+                </div>
+                <div class="dash-header-right">
+                    <p class="text-muted mb-1" style="font-size: 14px;">Optimization Score</p>
+                    <p class="text-accent font-bold counter" data-target="96" style="font-size: 40px; line-height: 1;">0
+                    </p>
+                </div>
+            </div>
+            <div class="dash-stats">
+                <div class="glass stat-box"> <i class="fa-solid fa-diagram-project"></i>
+                    <p class="num counter" data-target="6">0</p>
+                    <p class="text-muted" style="font-size: 14px;">Connected Accounts</p>
+                </div>
+                <div class="glass stat-box"> <i class="fa-solid fa-users"></i>
+                    <p class="num"><span class="counter" data-target="154">0</span>K</p>
+                    <p class="text-muted" style="font-size: 14px;">Total Audience</p>
+                </div>
+                <div class="glass stat-box"> <i class="fa-solid fa-chart-line"></i>
+                    <p class="num"><span class="counter" data-target="2">0</span>.8M</p>
+                    <p class="text-muted" style="font-size: 14px;">Weekly Reach</p>
+                </div>
+                <div class="glass stat-box"> <i class="fa-solid fa-calendar-check"></i>
+                    <p class="num counter" data-target="42">0</p>
+                    <p class="text-muted" style="font-size: 14px;">Posts Scheduled</p>
+                </div>
+            </div>
+            <div class="dash-insights">
+                <div class="glass" style="padding: 24px;">
+                    <h4 class="mb-4"><i class="fa-solid fa-trophy text-accent" style="color:#fbbf24;"></i> Best
+                        Performing</h4>
+                    <div class="flex items-center gap-3">
+                        <i class="fa-brands fa-linkedin" style="font-size: 40px; color: #0077b5;"></i>
+                        <div>
+                            <p class="font-bold" style="font-size: 18px;">LinkedIn</p>
+                            <p class="text-accent" style="font-size: 14px;">+18% engagement</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass"
+                    style="padding: 24px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h4 class="font-bold mb-1" style="font-size: 20px;">Fastest Growing Audience</h4>
+                        <p class="text-muted" style="font-size: 14px;">YouTube Shorts are driving traffic.</p>
+                    </div>
+                    <div
+                        style="width: 64px; height: 64px; border: 4px solid var(--accent); border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+                        <i class="fa-solid fa-arrow-trend-up text-accent" style="font-size: 24px;"></i> </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section container text-center reveal">
+        <h2 class="font-bold mb-8" style="font-size: 32px;">Omnichannel AI Synchronization</h2>
+        <div class="sync-wrapper">
+            <div class="glass sync-node"> <i class="fa-solid fa-user-astronaut mb-2" style="font-size: 24px;"></i>
+                <h3 class="font-bold">Your Profile Data</h3>
+            </div> <i class="fa-solid fa-chevron-down text-accent flow-arrow"
+                style="font-size: 24px; margin-bottom: 24px;"></i>
+            <div class="glass sync-node sync-engine">
+                <h3 class="font-bold" style="font-size: 24px;">BuildForge AI Engine</h3>
+                <p style="font-size: 12px; color: #bfdbfe; margin-top:
+4px;">Processing & Optimizing</p>
+            </div>
+            <div class="sync-arrows"> <i class="fa-solid fa-chevron-down text-accent flow-arrow"
+                    style="font-size: 24px; animation-delay: 0.2s;"></i> <i
+                    class="fa-solid fa-chevron-down text-accent flow-arrow"
+                    style="font-size: 24px; animation-delay: 0.4s;"></i> <i
+                    class="fa-solid fa-chevron-down text-accent flow-arrow"
+                    style="font-size: 24px; animation-delay: 0.6s;"></i> </div>
+            <div class="sync-icons">
+                <div class="glass sync-icon-box"><i class="fa-brands fa-linkedin" style="color: #0077b5;"></i></div>
+                <div class="glass sync-icon-box"><i class="fa-brands fa-instagram" style="color: #E1306C;"></i></div>
+                <div class="glass sync-icon-box"><i class="fa-brands fa-x-twitter" style="color: #fff;"> </i>X</div>
+                <div class="glass sync-icon-box"><i class="fa-brands fa-facebook" style="color: #1877F2;"></i></div>
+                <div class="glass sync-icon-box"><i class="fa-brands fa-youtube" style="color: #FF0000;"></i></div>
+            </div>
+        </div>
+    </section>
+    <section class="section container reveal">
+        <div class="split-grid">
+            <div class="glass-panel connect-console text-center">
+                <div id="connectBtnContainer">
+                    <h3 class="font-bold mb-8" style="font-size: 24px;">Frictionless Onboarding</h3> <button
+                        id="masterConnectBtn" class="btn btn-primary" style="padding: 20px 40px; font-size: 18px;"> <i
+                            class="fa-solid fa-bolt" style="color: #fbbf24;"></i> Connect All Platforms </button>
+                </div>
+                <div id="connectionConsole" class="hidden w-full">
+                    <div class="console-log custom-scrollbar" id="logLines">
+                        <p class="text-accent mb-4" style="animation: pulse 2s infinite;">> Initializing secure OAuth
+                            loop...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="glass" style="padding: 40px;">
+                <h3 class="font-bold mb-2 flex items-center gap-3" style="font-size: 24px;"> <i
+                        class="fa-solid fa-shield-halved text-accent"></i> Smart Permissions </h3>
+                <p class="text-muted mb-8" style="font-size: 14px;">You control exactly what the AI can do.</p>
+                <div>
+                    <div class="toggle-row">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-check text-accent"></i> Read Profile
+                            Data</div> <label class="toggle-switch"><input type="checkbox" checked><span
+                                class="slider"></span></label>
+                    </div>
+                    <div class="toggle-row">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-check text-accent"></i> Publish Posts
+                            Automatically</div> <label class="toggle-switch"><input type="checkbox" checked><span
+                                class="slider"></span></label>
+                    </div>
+                    <div class="toggle-row">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-check text-accent"></i> View
+                            Analytics</div> <label class="toggle-switch"><input type="checkbox" checked><span
+                                class="slider"></span></label>
+                    </div>
+                    <div class="toggle-row" style="border: none; margin: 0; padding: 0;">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-check text-accent"></i> Manage
+                            Comments (AI Replies)</div> <label class="toggle-switch"><input type="checkbox"><span
+                                class="slider"></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section container reveal">
+        <h2 class="text-center font-bold mb-8" style="font-size: 32px;"><i
+                class="fa-solid fa-wand-magic-sparkles text-accent"></i> AI Growth Recommendations</h2>
+        <div class="grid-3">
+            <div class="glass rec-card">
+                <div class="rec-match">98% Match</div> <i class="fa-brands fa-instagram mb-4"
+                    style="font-size: 32px; color: #E1306C;"></i>
+                <p class="text-muted mb-2" style="font-size: 14px;">💡 Engagement is down by 12%</p>
+                <h4 class="font-bold mb-4" style="font-size: 18px;">Post Reels between 6 PM–8 PM</h4> <button
+                    class="btn-small">Apply Schedule</button>
+            </div>
+            <div class="glass rec-card">
+                <div class="rec-match">94% Match</div> <i class="fa-brands fa-linkedin mb-4"
+                    style="font-size: 32px; color: #0077b5;"></i>
+                <p class="text-muted mb-2" style="font-size: 14px;">💡 Professional reach peaking</p>
+                <h4 class="font-bold mb-4" style="font-size: 18px;">LinkedIn performs best on Tuesdays.</h4> <button
+                    class="btn-small">Auto-Reschedule</button>
+            </div>
+            <div class="glass rec-card">
+                <div class="rec-match">89% Match</div> <i class="fa-solid fa-share-nodes mb-4"
+                    style="font-size: 32px; color: #fff;"></i>
+                <p class="text-muted mb-2" style="font-size: 14px;">💡 Untapped audience segment</p>
+                <h4 class="font-bold mb-4" style="font-size: 18px;">Cross-post latest article to Facebook.</h4> <button
+                    class="btn-small">Generate Draft</button>
+            </div>
+        </div>
+    </section>
+    <section class="section container reveal">
+        <div class="split-grid">
+            <div>
+                <h2 class="font-bold mb-8" style="font-size: 24px;">AI Posting Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot active"></div>
+                        <p class="text-accent font-bold mb-1" style="font-size: 14px;">Monday, 9:00 AM</p>
+                        <div class="glass" style="padding: 16px;">
+                            <div class="flex items-center gap-2 mb-2"><i class="fa-brands fa-linkedin"
+                                    style="color: #0077b5;"></i> <span class="font-bold">LinkedIn Article</span></div>
+                            <p class="text-muted" style="font-size: 14px;">"Leadership in Tech: 2026 Trends"</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="text-muted font-bold mb-1" style="font-size: 14px;">Tuesday, 6:30 PM</p>
+                        <div class="glass" style="padding: 16px; opacity: 0.7;">
+                            <div class="flex items-center gap-2 mb-2"><i class="fa-brands fa-instagram"
+                                    style="color: #E1306C;"></i> <span class="font-bold">Instagram Reel</span></div>
+                            <p class="text-muted" style="font-size: 14px;">"Behind the scenes at the office"</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="text-muted font-bold mb-1" style="font-size: 14px;">Wednesday, 1:15 PM</p>
+                        <div class="glass" style="padding: 16px; opacity: 0.7;">
+                            <div class="flex items-center gap-2 mb-2"><i class="fa-brands fa-x-twitter"
+                                    style="color: #fff;"></i> <span class="font-bold">Twitter Thread</span></div>
+                            <p class="text-muted" style="font-size: 14px;">"5 tips for better system design..."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-panel" style="height: 100%;">
+                <h2 class="font-bold mb-8" style="font-size: 24px;">Live Engine Activity</h2>
+                <div class="activity-feed custom-scrollbar">
+                    <div class="activity-item"> <i class="fa-solid fa-check-circle"
+                            style="color: #4ade80; margin-top: 4px;"></i>
+                        <div>
+                            <p style="font-size: 14px; font-weight: 500;">Instagram Connected Successfully</p>
+                            <p style="font-size: 12px; color: #6b7280;">2 mins ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item"> <i class="fa-solid fa-arrows-rotate text-accent"
+                            style="margin-top: 4px; animation: spin 4s linear infinite;"></i>
+                        <div>
+                            <p style="font-size: 14px; font-weight: 500;">LinkedIn Data Synced</p>
+                            <p style="font-size: 12px; color: #6b7280;">15 mins ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item"> <i class="fa-solid fa-robot"
+                            style="color: #c084fc; margin-top: 4px;"></i>
+                        <div>
+                            <p style="font-size: 14px; font-weight: 500;">AI Generated New Caption</p>
+                            <p style="font-size: 12px; color: #6b7280;">1 hour ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item"> <i class="fa-regular fa-calendar-plus"
+                            style="color: #60a5fa; margin-top: 4px;"></i>
+                        <div>
+                            <p style="font-size: 14px; font-weight: 500;">Scheduled YouTube Video</p>
+                            <p style="font-size: 12px; color: #6b7280;">3 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item"> <i class="fa-solid fa-chart-pie"
+                            style="color: var(--primary-btn); margin-top: 4px;"></i>
+                        <div>
+                            <p style="font-size: 14px; font-weight: 500;">Facebook Analytics Updated</p>
+                            <p style="font-size: 12px; color: #6b7280;">5 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section security-section reveal">
+        <div class="container">
+            <h2 class="text-muted mb-8 font-bold"
+                style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Enterprise-Grade Security</h2>
+            <div class="sec-icons-wrap">
+                <div class="sec-item">
+                    <div class="sec-icon"><i class="fa-solid fa-lock"></i></div><span
+                        style="font-size: 14px; font-weight: 500;">OAuth 2.0 Auth</span>
+                </div>
+                <div class="sec-item">
+                    <div class="sec-icon"><i class="fa-solid fa-shield-halved"></i></div><span
+                        style="font-size: 14px; font-weight: 500;">Secure API</span>
+                </div>
+                <div class="sec-item">
+                    <div class="sec-icon"><i class="fa-solid fa-file-shield"></i></div><span
+                        style="font-size: 14px; font-weight: 500;">End-to-End Encrypted</span>
+                </div>
+                <div class="sec-item">
+                    <div class="sec-icon"><i class="fa-solid fa-key"></i></div><span
+                        style="font-size: 14px; font-weight: 500;">Auto Token Refresh</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="cta-section reveal">
+        <div class="cta-bg-glow"></div>
+        <div class="container relative" style="z-index: 10;">
+            <div class="glass-panel" style="max-width: 800px; margin: 0 auto; padding: 64px 32px;">
+                <h2 class="font-bold mb-4 text-glow" style="font-size: 40px; line-height: 1.2;">Grow Everywhere with One
+                    AI Dashboard</h2>
+                <p class="mb-8" style="color: #d1d5db; font-size: 18px;">Stop switching tabs. Let BuildForge AI manage,
+                    write, and schedule your content across the entire web.</p>
+                <div class="flex items-center justify-center gap-20 flex-wrap ai"> <button class="btn btn-primary"
+                        style="padding: 16px 32px;">Connect Social Accounts</button> <button class="btn btn-outline"
+                        style="padding: 16px 32px; border-radius: 50px;">Start AI Automation</button> </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>© 2026 BuildForge AI. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+      // Render Platforms
+      const platforms = [
+        { name: 'LinkedIn', icon: 'fa-linkedin', color: '#0077b5', followers: '12.4K', status: 'Connected', score: '98%' },
+        { name: 'X (Twitter)', icon: 'fa-x-twitter', color: '#ffffff', followers: '8.2K', status: 'Connected', score: '92%' },
+        { name: 'Instagram', icon: 'fa-instagram', color: '#E1306C', followers: '24.1K', status: 'Connected', score: '95%' },
+        { name: 'YouTube', icon: 'fa-youtube', color: '#FF0000', followers: '105K', status: 'Syncing...', score: '88%' },
+        { name: 'Threads', icon: 'fa-threads', color: '#ffffff', followers: '3.4K', status: 'Connected', score: '90%' },
+        { name: 'Facebook', icon: 'fa-facebook', color: '#1877F2', followers: '1.2K', status: 'Disconnected', score: 'N/A' }
+      ];
+
+      const pContainer = document.getElementById('platforms-container');
+      platforms.forEach(p => {
+        const isConnected = p.status === 'Connected';
+        const pulse = isConnected ? '<span class="status-pulse"></span>' : '<span style="width:10px;height:10px;border-radius:50%;background:#6b7280;display:inline-block;"></span>';
+        pContainer.innerHTML += `
+          <div class="glass platform-card reveal">
+            <div class="platform-header">
+              <div class="platform-title"><i class="fa-brands ${p.icon}" style="color: ${p.color}; font-size: 32px;"></i> ${p.name}</div>
+              <div class="platform-status">${pulse} ${p.status}</div>
+            </div>
+            <div class="platform-stats">
+              <div>
+                <p class="stat-label">Followers</p>
+                <p class="stat-value">${p.followers}</p>
+              </div>
+              <div>
+                <p class="stat-label">AI Health</p>
+                <p class="stat-value text-accent">${p.score}</p>
+              </div>
+            </div>
+            <div class="platform-actions">
+              <button class="btn-sync">Sync Now</button>
+              <button class="btn-unlink"><i class="fa-solid fa-unlink"></i></button>
+            </div>
+          </div>
+        `;
+      });
+
+      // Scroll Reveal & Counters
+      const revealElements = document.querySelectorAll('.reveal');
+      const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+      const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            const counters = entry.target.querySelectorAll('.counter');
+            counters.forEach(counter => {
+              const target = +counter.getAttribute('data-target');
+              const duration = 2000;
+              const increment = target / (duration / 16);
+              let current = 0;
+              const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                  counter.innerText = Math.ceil(current);
+                  requestAnimationFrame(updateCounter);
+                } else {
+                  counter.innerText = target;
+                }
+              };
+              updateCounter();
+              counter.classList.remove('counter');
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, revealOptions);
+      revealElements.forEach(el => revealOnScroll.observe(el));
+
+      // Connect Simulator
+      const masterBtn = document.getElementById('masterConnectBtn');
+      const btnContainer = document.getElementById('connectBtnContainer');
+      const consoleDiv = document.getElementById('connectionConsole');
+      const logLines = document.getElementById('logLines');
+      const logs = [
+        "Connecting securely to APIs...",
+        "<span style='color: #4ade80;'>✓ LinkedIn Connected</span>",
+        "<span style='color: #4ade80;'>✓ Instagram Connected</span>",
+        "<span style='color: #4ade80;'>✓ X (Twitter) Connected</span>",
+        "<span style='color: #4ade80;'>✓ Facebook Connected</span>",
+        "<span style='color: #4ade80;'>✓ YouTube Connected</span>",
+        "<span style='color: #4ade80;'>✓ TikTok Connected</span>",
+        "<span style='color: var(--accent); font-weight: bold;'>Done! All platforms synced successfully.</span>"
+      ];
+      masterBtn.addEventListener('click', () => {
+        btnContainer.classList.add('hidden');
+        consoleDiv.classList.remove('hidden');
+        let delay = 500;
+        logs.forEach((log) => {
+          setTimeout(() => {
+            const p = document.createElement('p');
+            p.innerHTML = log;
+            p.style.animation = "slideUp 0.3s ease-out forwards";
+            p.style.marginBottom = "8px";
+            logLines.appendChild(p);
+            logLines.scrollTop = logLines.scrollHeight;
+          }, delay);
+          delay += 700 + Math.random() * 500;
+        });
+      });
+
+      // Tabs
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const previewContents = document.querySelectorAll('.preview-content');
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          previewContents.forEach(content => content.classList.remove('active'));
+          btn.classList.add('active');
+          const targetId = btn.getAttribute('data-target');
+          document.getElementById(targetId).classList.add('active');
+        });
+      });
+    </script>
+</body>
+
+</html>
