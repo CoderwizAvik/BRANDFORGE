@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrandForge | login_signup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" href="139550-removebg-preview.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0A2647;
+            --bg-secondary: #144272;
+            --btn-primary: #205295;
+            --accent: #2C74B3;
+            --text-main: #FFFFFF;
+            --text-muted: #A3B8CC;
+            --error: #FF6B6B;
+            --glass-bg: rgba(20, 66, 114, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #071827 0%, var(--bg-primary) 45%, #123a5f 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            isolation: isolate;
+            padding: 20px;
+        }
+        /* Container & Glassmorphism */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 0.6s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .left-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .left-side img {
+            width: min(100%, 360px);
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+            display: block;
+            margin: 0 auto;
+            animation: slideLeft 1.2s ease-out forwards;
+        }
+
+
+        @keyframes slideLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px) rotate(-6deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0) rotate(0);
+            }
+        }
+
+        .right-side {
+            animation: slideRight 1s ease-out;
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(80px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .glass-card {
+            width: min(100%, 1100px);
+            max-width: 100%;
+            min-width: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(100, 165, 250, 0.25), 0 0 80px rgba(132, 193, 247, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: minmax(280px, 0.95fr) minmax(320px, 1.05fr);
+            align-items: center;
+            gap: 24px;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 70px rgba(32, 82, 149, 0.35), 0 0 100px rgba(44, 116, 179, 0.22);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .glass-card {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+
+            .left-side {
+                order: -1;
+                margin-bottom: 12px;
+            }
+
+            .left-side img {
+                width: min(280px, 75%);
+            }
+
+            .right-side {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+                align-items: flex-start;
+            }
+
+            .container {
+                min-height: auto;
+                padding: 0;
+            }
+
+            .glass-card {
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            .row {
+                flex-direction: column;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .tab-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        /* Tabs Toggle */
+        .tab-container {
+            display: flex;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 6px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease-in-out;
+            z-index: 1;
+
+        }
+
+        .tab-btn.active {
+            color: var(--text-main);
+            background: var(--btn-primary);
+            box-shadow: 0 12px 70px rgba(100, 165, 250, 0.25), 0 0 10px rgba(132, 193, 247, 0.15);
+        }
+
+        /* Views (Login vs Signup) */
+        .view-section {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Typography */
+        .text-center {
+            text-align: center;
+        }
+
+        .logo-tag {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform:
+                uppercase;
+            letter-spacing: 1px;
+        }
+        .logo-tag img{
+            width:30px;
+            height:auto;
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+            position: relative;
+            opacity: 0;
+            transform: translateY(25px);
+            animation: fieldAppear .6s forwards;
+        }
+
+        .form-group:nth-child(1) {
+            animation-delay: .2s;
+        }
+
+        .form-group:nth-child(2) {
+            animation-delay: .35s;
+        }
+
+        .form-group:nth-child(3) {
+            animation-delay: .5s;
+        }
+
+        .form-group:nth-child(4) {
+            animation-delay: .65s;
+        }
+
+        .form-group:nth-child(5) {
+            animation-delay: .8s;
+        }
+
+        @keyframes fieldAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-tag,
+        h2,
+        .subtitle {
+            opacity: 0;
+            animation: textReveal .8s forwards;
+        }
+
+        .logo-tag {
+            animation-delay: .15s;
+        }
+
+        h2 {
+            animation-delay: .3s;
+        }
+
+        .subtitle {
+            animation-delay: .45s;
+        }
+
+        @keyframes textReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: inherit;
+            z-index: -5;
+            animation: bgZoom 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgZoom {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.08);
+            }
+        }
+
+        .glass-card {
+            animation:
+                pageReveal 1s cubic-bezier(.22, 1, .36, 1),
+                floating 4s ease-in-out infinite 1.1s;
+        }
+
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: white;
+            opacity: .12;
+            pointer-events: none;
+            animation: flash .8s forwards;
+        }
+
+        @keyframes flash {
+            from {
+                opacity: .12;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+        .brand-name {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #8dd8ff,
+        #2C74B3,
+        #ffffff
+    );
+
+    background-size: 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: shine 6s linear infinite;
+
+    text-shadow:
+        0 0 20px rgba(44,116,179,.3);
+}
+
+@keyframes shine{
+    0%{
+        background-position:0%;
+    }
+    100%{
+        background-position:300%;
+    }
+}
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(44, 116, 179, 0.2);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-pwd {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .toggle-pwd:hover {
+            transform: translateY(-50%) scale(1.05);
+            text-decoration: underline;
+
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .row .form-group {
+            flex: 1;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        input.error {
+            border-color: var(--error);
+        }
+
+        /* Checkboxes & Links */
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: 0.3s ease-in-out;
+        }
+
+        a:hover {
+            color: var(--text-main);
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: var(--btn-primary);
+            color: var(--text-main);
+            box-shadow: 0 8px 25px rgba(4, 36, 78, 0.35), 0 0 30px rgba(26, 52, 74, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 35px rgba(32, 82, 149, 0.45), 0 0 45px rgba(44, 116, 179, 0.3);
+        }
+
+        .btn-google {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            margin-top: 16px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 25px rgba(44, 116, 179, 0.15);
+        }
+
+        .btn-google:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(44, 116, 179, 0.25);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 8px 25px rgba(44, 116, 179, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 10px 30px rgba(44, 116, 179, 0.18);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--glass-border);
+            margin: 0 10px;
+        }
+
+        /* Password Strength */
+        .pwd-strength {
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 8px;
+            overflow:
+                hidden;
+            display: flex;
+        }
+
+        .pwd-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: 0.3s ease-in-out;
+        }
+
+        /* Step Navigation for Signup */
+        .step {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom:
+                24px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 33.33%;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
+
+        /* Chips */
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .chip {
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            user-select: none;
+        }
+
+        .chip:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .chip.selected {
+            background: var(--btn-primary);
+            border-color: var(--accent);
+        }
+
+        /* AI Loading Screen */
+        .ai-loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .ai-loading-screen.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 30px;
+        }
+
+        #loadingText {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--accent);
+            min-height: 30px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- AI Loading Screen (Triggered at the end of signup) -->
+    <div class="ai-loading-screen" id="loadingScreen">
+        <div class="loader-spinner"></div>
+        <p id="loadingText">Analyzing your profile...</p>
+    </div>
+
+    <div class="container">
+        <div class="glass-card">
+            <div class="left-side">
+                <img src="undraw_budgeting_klon.svg" alt="">
+            </div>
+            <div class="right-side">
+                <!-- Unified Tab Navigation -->
+                <div class="tab-container">
+                    <div class="tab-btn active" id="tabLogin" onclick="switchTab('login')">Welcome Back</div>
+                    <div class="tab-btn" id="tabSignup" onclick="switchTab('signup')">Start Your Journey</div>
+                </div>
+
+                <!-- ================= VIEW: LOGIN ================= -->
+                <div class="view-section active" id="viewLogin">
+                    <div class="text-center">
+                        <p class="logo-tag"> <img src="139550-removebg-preview.png" alt="image"> BrandForge</p>
+                        <h2>Sign In</h2>
+                        <p class="subtitle">Access your AI-powered workspace</p>
+                    </div>
+
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="loginEmail" placeholder="name@company.com">
+                            <span class="error-message"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="loginPassword" placeholder="Enter your password">
+                                <button class="toggle-pwd" type="button">Show</button>
+                            </div>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="flex-between">
+                            <label class="checkbox-group">
+                                <input type="checkbox"> Remember me
+                            </label>
+                            <a href="#">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Login</button>
+
+                        <div class="divider">or</div>
+
+                        <button type="button" class="btn btn-google">
+                            <svg width="18" height="18" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.761H12.545z" />
+                            </svg>
+                            Continue with Google
+                        </button>
+                    </form>
+                </div>
+
+                <!-- ================= VIEW: SIGNUP & ONBOARDING ================= -->
+                <div class="view-section" id="viewSignup">
+                    <div class="text-center">
+                        <p class="logo-tag"><img src="139550-removebg-preview.png" alt="image"> BrandForge</p>
+                        <h2 id="signupTitle">Create Account</h2>
+                        <p class="subtitle" id="signupSubtitle">Step 1: Your details</p>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="signupProgress"></div>
+                    </div>
+
+                    <form id="signupForm">
+
+                        <!-- STEP 1: Account Credentials -->
+                        <div class="step active" id="step1">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="regName" placeholder="John Doe">
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="regEmail" placeholder="name@company.com">
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <div class="password-wrapper">
+                                        <input type="password" id="regPassword" placeholder="Min 8 chars">
+                                        <button class="toggle-pwd" type="button">Show</button>
+                                    </div>
+                                    <div class="pwd-strength">
+                                        <div class="pwdStrengthBar" id="pwdStrengthBar"></div>
+                                    </div>
+                                    <span class="error-message"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <div class="password-wrapper">
+                                        <input type="password" id="regConfirm" placeholder="Repeat">
+                                    </div>
+                                    <span class="error-message"></span>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(1)">Continue</button>
+                            <div class="divider">or</div>
+                            <button type="button" class="btn btn-google">Continue with Google</button>
+                        </div>
+
+
+                        <!-- STEP 2: Professional Profile -->
+                        <div class="step" id="step2">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label>Profession</label>
+                                    <input type="text" id="obProfession" placeholder="e.g. Software Engineer">
+                                </div>
+                                <div class="form-group">
+                                    <label>Company Name</label>
+                                    <input type="text" id="obCompany" placeholder="Google/IBM">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label>Industry</label>
+                                    <input type="text" id="obIndustry" placeholder="e.g. Tech, Finance">
+                                </div>
+                                <div class="form-group">
+                                    <label>Years of Experience</label>
+                                    <select id="obYoe">
+                                        <option value="0-2">0 - 2 years</option>
+                                        <option value="3-5">3 - 5 years</option>
+                                        <option value="5-10">5 - 10 years</option>
+                                        <option value="10+">10+ years</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="nav-buttons">
+                                <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Back</button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep(2)">Continue</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: Brand Preferences -->
+                        <div class="step" id="step3">
+                            <div class="form-group">
+                                <label>Target Audience (Select multiple)</label>
+                                <div class="chips-container" id="targetAudience">
+                                    <div class="chip">Students</div>
+                                    <div class="chip">Developers</div>
+                                    <div class="chip">Recruiters</div>
+                                    <div class="chip">Founders</div>
+                                    <div class="chip">AI Enthusiasts</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label>Preferred Platforms</label>
+                                    <label class="checkbox-group"><input type="checkbox" value="LinkedIn">
+                                        LinkedIn</label>
+                                    <label class="checkbox-group"><input type="checkbox" value="X"> X (Twitter)</label>
+                                    <label class="checkbox-group"><input type="checkbox" value="Instagram">
+                                        Instagram</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Frequency</label>
+                                    <select id="obFreq">
+                                        <option value="Daily">Daily</option>
+                                        <option value="Weekly">Weekly</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Goals (Select multiple)</label>
+                                <div class="chips-container" id="goals">
+                                    <div class="chip">Get a Job</div>
+                                    <div class="chip">Build Brand</div>
+                                    <div class="chip">Grow Startup</div>
+                                    <div class="chip">Networking</div>
+                                </div>
+                            </div>
+                            <div class="nav-buttons">
+                                <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Back</button>
+                                <button type="button" class="btn btn-primary" onclick="finishSignup()">Complete
+                                    Setup</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // --- Utility Functions ---
+        const getEl = (id) => document.getElementById(id);
+        const showError = (input, msg) => {
+            input.classList.add('error');
+            const errorEl = input.parentElement.querySelector('.error-message') || input.parentElement.parentElement.querySelector('.error-message');
+            if (errorEl) { errorEl.textContent = msg; errorEl.style.display = 'block'; }
+        };
+        const clearError = (input) => {
+            input.classList.remove('error');
+            const errorEl = input.parentElement.querySelector('.error-message') || input.parentElement.parentElement.querySelector('.error-message');
+            if (errorEl) errorEl.style.display = 'none';
+        };
+
+        // --- Tab Switching ---
+        function switchTab(tab) {
+            // Buttons
+            getEl('tabLogin').classList.remove('active');
+            getEl('tabSignup').classList.remove('active');
+            // Views
+            getEl('viewLogin').classList.remove('active');
+            getEl('viewSignup').classList.remove('active');
+
+            if (tab === 'login') {
+                getEl('tabLogin').classList.add('active');
+                getEl('viewLogin').classList.add('active');
+            } else {
+                getEl('tabSignup').classList.add('active');
+                getEl('viewSignup').classList.add('active');
+            }
+        }
+
+        // --- Toggle Password Visibility ---
+        document.querySelectorAll('.toggle-pwd').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const input = e.target.previousElementSibling;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    e.target.textContent = 'Hide';
+                } else {
+                    input.type = 'password';
+                    e.target.textContent = 'Show';
+                }
+            });
+        });
+
+        // --- Password Strength Meter ---
+        const regPwd = getEl('regPassword');
+        const strengthBar = getEl('pwdStrengthBar');
+        if (regPwd) {
+            regPwd.addEventListener('input', (e) => {
+                const val = e.target.value;
+                let strength = 0;
+                if (val.length >= 8) strength++;
+                if (val.match(/[A-Z]/)) strength++;
+                if (val.match(/[0-9]/)) strength++;
+                if (val.match(/[^a-zA-Z0-9]/)) strength++;
+
+                const colors = ['transparent', '#FF6B6B', '#FFD93D', '#6BCB77', '#2C74B3'];
+                strengthBar.style.width = `${(strength / 4) * 100}%`;
+                strengthBar.style.backgroundColor = colors[strength];
+            });
+        }
+
+        // --- Login Submit ---
+        getEl('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            const email = getEl('loginEmail');
+            const pwd = getEl('loginPassword');
+
+            if (!email.value) { showError(email, 'Email required'); isValid = false; } else clearError(email);
+            if (!pwd.value) { showError(pwd, 'Password required'); isValid = false; } else clearError(pwd);
+
+            if (isValid) alert('Login successful! Redirecting to dashboard...');
+        });
+
+        // --- Multi-Step Signup & Onboarding ---
+        let currentStep = 1;
+
+        function updateSignupUI() {
+            // Update steps
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            getEl(`step${currentStep}`).classList.add('active');
+
+            // Update progress bar
+            getEl('signupProgress').style.width = `${(currentStep / 3) * 100}%`;
+
+            // Update Titles
+            const title = getEl('signupTitle');
+            const sub = getEl('signupSubtitle');
+            if (currentStep === 1) { title.innerText = "Create Account"; sub.innerText = "Step 1: Your details"; }
+            else if (currentStep === 2) { title.innerText = "Professional Profile"; sub.innerText = "Step 2: Tell us about your background"; }
+            else if (currentStep === 3) { title.innerText = "Brand Preferences"; sub.innerText = "Step 3: Define your audience & goals"; }
+        }
+
+        function nextStep(step) {
+            if (step === 1) {
+                // Validate Step 1 (Account Info)
+                let valid = true;
+                const name = getEl('regName');
+                const email = getEl('regEmail');
+                const pwd = getEl('regPassword');
+                const confirm = getEl('regConfirm');
+
+                if (!name.value) { showError(name, 'Name required'); valid = false; } else clearError(name);
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { showError(email, 'Valid email required'); valid = false; } else clearError(email);
+                if (pwd.value.length < 8) { showError(pwd, 'Min 8 chars required'); valid = false; } else clearError(pwd);
+                if (pwd.value !== confirm.value) { showError(confirm, 'Passwords must match'); valid = false; } else clearError(confirm);
+
+                if (!valid) return;
+            }
+
+            // Move to next step
+            currentStep++;
+            updateSignupUI();
+        }
+
+        function prevStep(step) {
+            currentStep--;
+            updateSignupUI();
+        }
+
+        // Chip Selection logic
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => chip.classList.toggle('selected'));
+        });
+
+        // Final Submit
+        function finishSignup() {
+            const selectedPlatforms = Array.from(document.querySelectorAll('#step3 input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+
+            const profileData = {
+                name: getEl('regName').value || 'Alex',
+                email: getEl('regEmail').value || 'alex@example.com',
+                profession: getEl('obProfession').value || 'Software Engineer',
+                company: getEl('obCompany').value || 'BrandForge',
+                industry: getEl('obIndustry').value || 'Technology / SaaS',
+                experience: getEl('obYoe').value || '3-5',
+                frequency: getEl('obFreq').value || 'Weekly',
+                niche: getEl('obProfession').value && getEl('obIndustry').value
+                    ? `${getEl('obProfession').value} in ${getEl('obIndustry').value}`
+                    : 'AI & Machine Learning',
+                skills: 'Strategy, Branding, Growth',
+                audience: Array.from(getEl('targetAudience').querySelectorAll('.chip.selected')).map(c => c.innerText)
+                    .join(', ') || 'Tech enthusiasts',
+                goals: Array.from(getEl('goals').querySelectorAll('.chip.selected')).map(c => c.innerText)
+                    .join(', ') || 'Build brand',
+                platforms: selectedPlatforms.join(', ') || 'LinkedIn'
+            };
+
+            localStorage.setItem('brandForgeUser', JSON.stringify(profileData));
+            console.log('Profile Data Saved:', profileData);
+
+            const loadingScreen = getEl('loadingScreen');
+            const loadingText = getEl('loadingText');
+            loadingScreen.classList.add('active');
+
+            const messages = [
+                'Analyzing your profile...',
+                'Understanding your niche...',
+                'Identifying your audience...',
+                'Building your branding strategy...',
+                'Calculating Brand Score...',
+                'Setting up workspace...'
+            ];
+
+            let msgIndex = 0;
+            const msgInterval = setInterval(() => {
+                msgIndex++;
+                if (msgIndex < messages.length) {
+                    loadingText.innerText = messages[msgIndex];
+                }
+            }, 850);
+
+            setTimeout(() => {
+                clearInterval(msgInterval);
+                continueToProfileAnalysis();
+            }, 5100);
+        }
+
+        function continueToProfileAnalysis() {
+            window.location.href = 'profileanalysis.html';
+        }
+    </script>
+</body>
+
+</html>
